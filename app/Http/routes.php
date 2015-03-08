@@ -19,3 +19,7 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+Route::resource('levels', 'LevelsController');
+Route::post('levels/answer/{id}', 'LevelsController@answer');
+Route::get('levels/{id}/{slug}', 'LevelsController@show');
