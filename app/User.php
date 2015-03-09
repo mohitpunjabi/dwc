@@ -39,4 +39,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function setIsAdminAttribute($value) {
         $this->attributes['is_admin'] = false;
     }
+
+
+    /**
+     * Mutator to get the gravatar for the user.
+     * @return string
+     */
+    public function getGravatarAttribute()
+    {
+        $hash = md5(strtolower(trim($this->attributes['email'])));
+        return "http://www.gravatar.com/avatar/$hash";
+    }
 }
