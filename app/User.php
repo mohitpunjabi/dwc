@@ -31,4 +31,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+    /**
+     * Nobody can be admin. Admins can only be created from the database.
+     *
+     * @param $value
+     */
+    public function setIsAdminAttribute($value) {
+        $this->attributes['is_admin'] = false;
+    }
 }

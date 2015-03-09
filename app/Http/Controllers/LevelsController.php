@@ -4,9 +4,16 @@ use App\Http\Requests;
 use App\Http\Requests\LevelRequest;
 
 use App\Level;
+use Illuminate\Support\Facades\Auth;
 
 // TODO Add auth
 class LevelsController extends Controller {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('auth.admin', ['except' => ['index', 'show', 'answer']]);
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -82,7 +89,15 @@ class LevelsController extends Controller {
 	public function update($id, LevelRequest $request)
 	{
         $level = Level::findOrFail($id);
-        $level->update($request->all());
+        $params = $request->all();
+        if($image = $request->file('image')) {
+            $image->move(public_path('img/hints'), $image->getClientOriginalName());
+            $params['image'] = url('img/hints/' . $image->getClientOriginalName());
+        }
+        else {
+            $params['image'] = null;
+        }
+        $level->update($params);
         return redirect('levels');
 	}
 
