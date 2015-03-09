@@ -22,7 +22,7 @@
             color: #000;
             display: table;
             font-weight: 200;
-            font-family: 'Lato';
+            font-family: 'Lato', 'Arial', sans-serif;
         }
 
         .container {
