@@ -14,13 +14,20 @@
         <br/>
 
         <p class="lead text-center">{!! $level->hint or '' !!}</p>
-        {!! Form::open(['url' => ['levels/answer', $level->id]]) !!}
+        {!! Form::open(['url' => ['levels', $level->id, 'attempt']]) !!}
             <div class="input-group input-group-lg">
-                <input type="text" placeholder="Your answer" class="form-control" data-allowed-chars="{{ $level->answer_format }}" />
+                {!! Form::text('answer', null, ['class' => 'form-control', 'placeholder' => 'Your answer', 'tabindex' => '1', 'autofocus' => 'true', 'data-allowed-chars' => $level->answer_format ]) !!}
                 <div class="input-group-btn">
-                    <button class=" btn btn-primary" type="submit">Go</button>
+                    <button class=" btn btn-primary" type="submit" tabindex="2">Go</button>
                 </div>
             </div>
         {!! Form::close() !!}
+
+        @if($errors->any())
+            <br/>
+            <div class="alert alert-danger">
+                {{ $errors->first() }}
+            </div>
+        @endif
     </div>
 @stop

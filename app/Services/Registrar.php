@@ -1,5 +1,6 @@
 <?php namespace App\Services;
 
+use App\Level;
 use App\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
@@ -33,6 +34,8 @@ class Registrar implements RegistrarContract {
 			'name' => $data['name'],
 			'email' => $data['email'],
 			'password' => bcrypt($data['password']),
+            'is_admin' => true,
+            'level_id' => Level::first()? Level::first()->id: NULL
 		]);
 	}
 
