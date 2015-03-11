@@ -1,4 +1,3 @@
-
 @extends('app')
 
 @section('content')
@@ -16,30 +15,21 @@
             @endif
 
             @foreach($levels as $level)
-                <div class="col-md-2 col-sm-4">
+                <div class="col-md-2 col-sm-4 col-xs-6 col-lg-2 level-thumbnail">
                     @if(Auth::user()->is_admin)
-                        <div>
-                            <a href="{{ route('levels.edit', $level->id) }}" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-edit"></i> Edit</a>
-                            <!--
-                            {!! Form::open(['route' => ['levels.destroy', $level->id], 'method' => 'delete', 'style' => 'display: inline']) !!}
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                            {!! Form::close() !!}
-                            -->
-                        </div>
+                            <a href="{{ route('levels.edit', $level->id) }}" class="btn btn-primary btn-block level-edit"><i class="glyphicon glyphicon-edit"></i> Edit</a>
                     @endif
-                    <img class="img-responsive" src="{{ $level->image }}" alt="{{ $level->image_tooltip }}" style="height: 200px"/>
-
-                    <h4>
-                        <span class="label label-success">+{{ $level->points }}</span>
-                        <a href="{{ route('levels.show', $level->id).'/'.$level->slug }}">{{ $level->title }}</a>
-                    </h4>
-
-                    <p>{!! $level->hint !!}</p>
-
-                    <br/>
+                    <a class="level-link" href="{{ route('levels.show', $level->id).'/'.$level->slug }}">
+                        <div class="level-image" style="background-image: url('{{ $level->image }}')"></div>
+                        <h4 class="level-title">
+                            <span class="label label-success level-points">+{{ $level->points }}</span>
+                            {{ $level->title }}
+                        </h4>
+                        <p class="level-hint">{!! $level->hint !!}</p>
+                    </a>
                 </div>
-
             @endforeach
+            @include('partials.ad')
         </div>
     </div>
 @stop

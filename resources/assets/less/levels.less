@@ -1,0 +1,53 @@
+.level-thumbnail {
+  @level-image-height: 150px;
+  height: @level-image-height + 130px;
+
+  &:hover {
+    .level-image {
+      border-radius: 0;
+    }
+  }
+
+  .level-edit {
+    margin-bottom: 5px;
+  }
+
+  .level-image {
+    height: @level-image-height;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-radius: 100%;
+    transition: all 0.1s;
+  }
+
+  a.level-link:hover {
+    text-decoration: none;
+  }
+
+  .level-hint {
+    color: black;
+  }
+
+  .level-points {
+    vertical-align: middle;
+    float: left;
+    margin-right: 3px;
+    font-size: 10px;
+  }
+}
+
+.level {
+
+  &-image {
+    max-height: 400px;
+  }
+
+  &-alert {
+    margin-top: 10px;
+  }
+
+  &-answer {
+    margin-top: 0;
+  }
+}

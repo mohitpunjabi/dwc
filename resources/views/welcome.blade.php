@@ -1,48 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-	<head>
-		<title>Laravel</title>
-		
-		<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+<head>
+    @include('partials.meta')
+    <title>DaWhimsiCo - March 14, 2015</title>
 
-		<style>
-			body {
-				margin: 0;
-				padding: 0;
-				width: 100%;
-				height: 100%;
-				color: #B0BEC5;
-				display: table;
-				font-weight: 100;
-				font-family: 'Lato';
-			}
+    <link rel="icon" type="image/ico" href="{{ asset('favico.png') }}" />
+    <link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="{{ asset('/css/app.css') }}" type="text/css" />
 
-			.container {
-				text-align: center;
-				display: table-cell;
-				vertical-align: middle;
-			}
+    @include('partials.analytics')
+</head>
 
-			.content {
-				text-align: center;
-				display: inline-block;
-			}
+<body class="welcome">
+@include('partials.facebook')
 
-			.title {
-				font-size: 96px;
-				margin-bottom: 40px;
-			}
+<div class="container">
 
-			.quote {
-				font-size: 24px;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container">
-			<div class="content">
-				<div class="title">Laravel 5</div>
-				<div class="quote">{{ Inspiring::quote() }}</div>
-			</div>
-		</div>
-	</body>
+    <div class="content">
+        @include('partials.ad')
+
+        <div class="subtitle">DaWhimsiCo will be live on</div>
+        <div class="title">3.14.15 9:26PM</div>
+
+        <div class="fb-like" data-href="https://facebook.com/dawhimsico/" data-width="300" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+    </div>
+
+</div>
+
+</body>
 </html>
