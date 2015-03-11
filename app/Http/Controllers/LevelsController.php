@@ -1,12 +1,28 @@
 <?php namespace App\Http\Controllers;
 
+use App\Attempt;
 use App\Http\Requests;
+use App\Http\Requests\AttemptRequest;
 use App\Http\Requests\LevelRequest;
 
+use App\Http\Requests\RatingRequest;
 use App\Level;
+use App\LevelAttempt;
+use App\Rating;
+use App\User;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 // TODO Add auth
 class LevelsController extends Controller {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('auth.admin', ['except' => ['index', 'show', 'attempt', 'rate']]);
+        $this->middleware('score', ['only' => 'show', 'attempt', 'rate']);
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -15,7 +31,8 @@ class LevelsController extends Controller {
 	 */
 	public function index()
 	{
-		return view("levels.index", ['levels' => Level::all()]);
+        $levels = Level::visibleTo(Auth::user())->get();
+		return view('levels.index', compact('levels'));
 	}
 
 	/**
@@ -35,16 +52,7 @@ class LevelsController extends Controller {
 	 */
 	public function store(LevelRequest $request)
 	{
-        $params = $request->all();
-        if($image = $request->file('image')) {
-            $image->move(public_path('img/hints'), $image->getClientOriginalName());
-            $params['image'] = url('img/hints/' . $image->getClientOriginalName());
-        }
-        else {
-            $params['image'] = null;
-        }
-
-		Level::create($params);
+		Level::create($request->all());
         return redirect('levels');
 	}
 
@@ -54,11 +62,14 @@ class LevelsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id, $slug = null)
+	public function show(Level $level, $slug = null)
 	{
-        $level = Level::findOrFail($id);
-        if($slug != $level->slug) return redirect(route('levels.show', $id) . '/' . $level->slug);
-        return view('levels.show', compact('level'));
+        if($slug != $level->slug)            return redirect(route('levels.show', $level->id) . '/' . $level->slug);
+
+        if(Auth::user()->is_admin)           return view('levels.admin.show', ['level' => $level, 'rating' => $level->ratings()->average()]);
+        if($level->isCurrent(Auth::user()))  return view('levels.show', compact('level'));
+        $showRating = (Auth::user()->ratings()->whereLevelId($level->id)->count() == 0);
+        return view('levels.solution', compact('level', 'showRating'));
 	}
 
 	/**
@@ -67,9 +78,8 @@ class LevelsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Level $level)
 	{
-        $level = Level::findOrFail($id);
         return view('levels.edit', ['level' => $level]);
 	}
 
@@ -79,9 +89,8 @@ class LevelsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, LevelRequest $request)
+	public function update(Level $level, LevelRequest $request)
 	{
-        $level = Level::findOrFail($id);
         $level->update($request->all());
         return redirect('levels');
 	}
@@ -92,19 +101,29 @@ class LevelsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Level $level)
 	{
-        Level::findOrFail($id)->delete();
+        $level->delete();
         return redirect('levels');
 	}
 
-    /**
-     * Checks if the User has given the correct answer for the level.
-     * @param  int  $id
-     * @return Response
-     */
-    public function answer($id)
+    public function rate(Level $level, RatingRequest $request)
     {
-        return 'answering';
+        $rating = new Rating($request->only('rating'));
+        $rating->user_id = $request->user()->id;
+        $level->ratings()->save($rating);
+
+        return redirect()->route('levels.show', [$request->user()->level->id]);
     }
+
+    public function attempt(Level $level, AttemptRequest $request)
+    {
+        $attempt = new Attempt($request->only('answer'));
+        $attempt->user_id = $request->user()->id;
+
+        if($level->attempts()->save($attempt)->checkSuccess())  return redirect()->back();
+
+        return redirect()->back()->withInputs($request->all());
+    }
+
 }

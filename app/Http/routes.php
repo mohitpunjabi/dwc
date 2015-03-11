@@ -12,8 +12,8 @@
 */
 
 Route::get('/', 'WelcomeController@index');
-
 Route::get('home', 'HomeController@index');
+Route::get('leaderboard', 'LeaderboardController@index');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -21,5 +21,6 @@ Route::controllers([
 ]);
 
 Route::resource('levels', 'LevelsController');
-Route::post('levels/answer/{id}', 'LevelsController@answer');
-Route::get('levels/{id}/{slug}', 'LevelsController@show');
+Route::post('levels/{levels}/attempt', 'LevelsController@attempt');
+Route::post('levels/{levels}/rate', 'LevelsController@rate');
+Route::get('levels/{levels}/{slug}', 'LevelsController@show');

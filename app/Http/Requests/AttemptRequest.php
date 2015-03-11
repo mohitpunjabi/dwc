@@ -1,9 +1,9 @@
 <?php namespace App\Http\Requests;
 
-
+use App\Http\Requests\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LevelRequest extends Request {
+class AttemptRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -12,7 +12,7 @@ class LevelRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return Auth::user()->is_admin;
+        return $this->route('levels') == Auth::user()->level;
 	}
 
 	/**
@@ -23,12 +23,7 @@ class LevelRequest extends Request {
 	public function rules()
 	{
 		return [
-            'slug' => 'required|alpha_dash',
-			'title' => 'required',
-            'image' => 'image',
-            'answer' => 'required',
-            'points' => 'required|numeric',
-            'solution' => 'required'
+			'answer' => 'required'
 		];
 	}
 

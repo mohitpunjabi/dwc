@@ -1,0 +1,28 @@
+.rating {
+  direction: rtl;
+  width: 100%;
+
+  &-star {
+    display: inline-block;
+    width: 20%;
+    height: 50px;
+    margin: -2px;
+    border: 0;
+    background: transparent url('../img/logo-without-text.png') no-repeat center center;
+    background-size: contain;
+    opacity: 0.25;
+    transition: all 0.3s;
+  }
+
+  &-star:hover {
+    opacity: 1;
+  }
+
+  &-star:hover + &-star,
+  &-star:hover + &-star + &-star,
+  &-star:hover + &-star + &-star + &-star,
+  &-star:hover + &-star + &-star + &-star + &-star {
+    opacity: 1;
+  }
+
+}

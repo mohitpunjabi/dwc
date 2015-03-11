@@ -22,7 +22,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'email', 'password'];
+	protected $fillable = ['name', 'email', 'password', 'level_id', 'is_admin'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -31,4 +31,35 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+    protected $appends = ['gravatar'];
+
+    /**
+     * Mutator to get the gravatar for the user.
+     * @return string
+     */
+    public function getGravatarAttribute()
+    {
+        $hash = md5(strtolower(trim($this->attributes['email'])));
+        return "http://www.gravatar.com/avatar/$hash";
+    }
+
+    public function level()
+    {
+        return $this->belongsTo('App\Level');
+    }
+
+    public function attempts()
+    {
+        return $this->hasMany('App\Attempt');
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany('App\Rating');
+    }
+
+    public function scopeSolved($query)
+    {
+        return $query->where('id', '<', $this->level->id);
+    }
 }
