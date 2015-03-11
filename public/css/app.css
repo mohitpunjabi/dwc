@@ -6320,5 +6320,38 @@ label,
 .rating-star:hover + .rating-star + .rating-star + .rating-star + .rating-star {
   opacity: 1;
 }
+.user-image {
+  float: left;
+  margin: 0px 7px 5px 0px;
+}
+.user-name {
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+.user .user-image {
+  width: 42px;
+  height: 42px;
+}
+.user .user-name {
+  font-size: 10.5px;
+}
+.user .user-score {
+  font-size: 12px;
+}
+.user-large .user-image {
+  width: 100px;
+  height: 100px;
+}
+.user-large .user-name {
+  font-size: 25px;
+}
+.user-large .user-score {
+  font-size: 20px;
+}
+.rank {
+  font-size: 20px;
+  display: inline-block;
+}
 
 /*# sourceMappingURL=app.css.map */

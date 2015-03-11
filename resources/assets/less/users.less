@@ -1,0 +1,42 @@
+@user-image-height: 42px;
+
+.user {
+  &-image {
+    float: left;
+    margin: 0px 7px 5px 0px;
+  }
+
+  &-name {
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+  }
+
+  .user-variant(@user-image-height);
+}
+
+.user-variant(@size) {
+  .user-image {
+    .square(@size);
+  }
+
+  .user-name {
+    font-size: @size / 4;
+  }
+
+  .user-score {
+    font-size: max(12px, @size / 5);
+  }
+}
+
+
+
+.user-large {
+  .user-variant(100px);
+}
+
+
+.rank {
+  font-size: 20px;
+  display: inline-block;
+}
