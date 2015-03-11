@@ -6231,6 +6231,10 @@ label,
 .checkbox label {
   font-weight: 300;
 }
+.jumbotron h1,
+.jumbotron p {
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+}
 .welcome {
   margin: 0;
   padding: 0;

@@ -11,21 +11,24 @@
     @include('partials.analytics')
 </head>
 
-<body class="welcome">
-@include('partials.facebook')
+<body>
 
-<div class="container">
+    <div class="jumbotron">
+        <div class="container">
+            @include('partials.nav')
+        </div>
 
-    <div class="content">
-        @include('partials.ad')
+        <div class="text-center">
+            <img src="{{ asset('/img/logo-without-text.png') }}"/>
+            <h1>DaWhimsiCo</h1>
+            <p>
+                There is but one rule. Hunt, or be hunted.
+            </p>
 
-        <div class="subtitle">DaWhimsiCo will be live on</div>
-        <div class="title">3.14.15 9:26PM</div>
-
-        <div class="fb-like" data-href="https://facebook.com/dawhimsico/" data-width="300" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+            <button class="btn btn-primary btn-lg">Sign in</button>
+            <button class="btn btn-lg">Register</button>
+        </div>
     </div>
-
-</div>
 
 </body>
 </html>
