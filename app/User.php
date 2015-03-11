@@ -53,6 +53,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Attempt');
     }
 
+    public function ratings()
+    {
+        return $this->hasMany('App\Rating');
+    }
+
     public function scopeSolved($query)
     {
         return $query->where('id', '<', $this->level->id);

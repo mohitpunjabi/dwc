@@ -5,8 +5,10 @@ use App\Http\Requests;
 use App\Http\Requests\AttemptRequest;
 use App\Http\Requests\LevelRequest;
 
+use App\Http\Requests\RatingRequest;
 use App\Level;
 use App\LevelAttempt;
+use App\Rating;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -29,7 +31,7 @@ class LevelsController extends Controller {
 	 */
 	public function index()
 	{
-        $levels = Auth::user()->is_admin? Level::all(): Level::visibleTo(Auth::user())->get();
+        $levels = Level::visibleTo(Auth::user())->get();
 		return view('levels.index', compact('levels'));
 	}
 
@@ -62,10 +64,12 @@ class LevelsController extends Controller {
 	 */
 	public function show(Level $level, $slug = null)
 	{
-        if($slug != $level->slug)         return redirect(route('levels.show', $level->id) . '/' . $level->slug);
-        if($level == Auth::user()->level) return view('levels.show', compact('level'));
+        if($slug != $level->slug)            return redirect(route('levels.show', $level->id) . '/' . $level->slug);
 
-        return view('levels.solution', compact('level'));
+        if(Auth::user()->is_admin)           return view('levels.admin.show', ['level' => $level, 'rating' => $level->ratings()->average()]);
+        if($level->isCurrent(Auth::user()))  return view('levels.show', compact('level'));
+        $showRating = (Auth::user()->ratings()->whereLevelId($level->id)->count() == 0);
+        return view('levels.solution', compact('level', 'showRating'));
 	}
 
 	/**
@@ -103,9 +107,11 @@ class LevelsController extends Controller {
         return redirect('levels');
 	}
 
-    public function rate(Level $level, Request $request)
+    public function rate(Level $level, RatingRequest $request)
     {
-        // TODO Save the rating
+        $rating = new Rating($request->only('rating'));
+        $rating->user_id = $request->user()->id;
+        $level->ratings()->save($rating);
 
         return redirect()->route('levels.show', [$request->user()->level->id]);
     }

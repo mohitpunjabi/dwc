@@ -21,23 +21,11 @@
                 <h3 class="level-answer page-header"><i class="glyphicon glyphicon-check"></i> {{ $level->answer }}</h3>
                 <p class="level-solution">{!! $level->solution !!}</p>
 
-                @if($showRating)
-                    <br/>
+                <a href="{{ route('levels.edit', $level->id) }}" class="btn btn-primary btn-block level-edit"><i class="glyphicon glyphicon-edit"></i> Edit</a>
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Rate this level to continue</div>
-
-                        <div class="panel-body">
-                            <div class="text-left rating">
-                                {!! Form::open(['url' => ['levels', $level->id, 'rate']]) !!}
-                                @for ($i = 5; $i >= 1; $i--)
-                                    <button type="submit" value="{{ $i }}" name="rating" class="rating-star"> </button>
-                                @endfor
-                                {!! Form::close() !!}
-                            </div>
-                        </div>
-                    </div>
-                @endif
+                <p>
+                    <strong>Average rating:</strong> {{ $rating }}
+                </p>
 
             </div>
         </div>

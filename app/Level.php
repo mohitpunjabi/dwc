@@ -38,6 +38,12 @@ class Level extends Model {
         return $this->hasMany('App\Attempt');
     }
 
+    public function ratings()
+    {
+        return $this->hasMany('App\Rating');
+    }
+
+
     public function scopeSolvedBy($query, User $user)
     {
         return $query->where('id', '<', $user->level->id);
@@ -45,6 +51,12 @@ class Level extends Model {
 
     public function scopeVisibleTo($query, User $user)
     {
+        if($user->is_admin) return $query;
         return $query->where('id', '<=', $user->level->id);
+    }
+
+    public function isCurrent(User $user)
+    {
+        return $user->level == $this;
     }
 }
