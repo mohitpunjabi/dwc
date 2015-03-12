@@ -15,8 +15,8 @@
                 <li><a href="{{ url('/') }}#about">About</a></li>
                 <li><a href="{{ url('/') }}#prizes">Prizes</a></li>
                 <li><a href="{{ url('/') }}#contact">Contact</a></li>
-                <li><a href="{{ url('/leaderboard') }}">Leaderboard</a></li>
                 @if(Auth::user())
+                    <li><a href="{{ url('/leaderboard') }}">Leaderboard</a></li>
                     <li><a href="{{ url('/levels') }}">Levels</a></li>
                 @endif
             </ul>

@@ -2,7 +2,7 @@
 <html>
 <head>
     @include('partials.meta')
-    <title>DaWhimsiCo - March 14, 2015</title>
+    <title>DaWhimsiCo - Online treasure hunt - Starting March 14, 2015</title>
 
     <link rel="icon" type="image/ico" href="{{ asset('favico.png') }}" />
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -24,7 +24,7 @@
 <body>
     @include('partials.facebook')
 
-    <div class="jumbotron">
+    <div class="jumbotron main">
         <div class="container">
             @include('partials.nav')
         </div>
@@ -39,7 +39,7 @@
                 <a href="{{ url('/auth/register') }}" class="btn btn-default btn-lg">Register</a>
             @else
                 <a href="{{ url('/home') }}"  class="btn btn-success btn-lg">Start playing now</a>
-                <a class="btn btn-primary btn-lg">Visit the forums</a>
+<!--                <a class="btn btn-primary btn-lg">Visit the forums</a> -->
             @endif
 
             <br/><br/>
@@ -86,7 +86,7 @@
                     <br/>
 
                     <div class="text-center facebook-like">
-                        <div class="fb-like" data-href="https://facebook.com/dawhimsico/" data-width="300" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>
+                        <div class="fb-like" data-href="https://facebook.com/dawhimsico/" data-width="250" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>
                     </div>
                 </p>
             </div>
@@ -96,17 +96,20 @@
     <div id="prizes" class="jumbotron">
         <div class="container">
             <div class="col-md-8 col-md-offset-2">
-                <h1 class="text-center">Solve each level, and get exciting prizes</h1>
+                <h1 class="text-center">Solve a level, and get prizes worth Rs. 20,000.</h1>
 
                 <p class="text-center">
                     This contest is a part of <a href="http://srijanism.org" target="_blank">Srijan 2015</a>, the cultural fest
                     of <a href="http://www.ismdhanbad.ac.in" target="_blank">Indian School of Mines, Dhanbad</a>.
-                    Solve each level and get amazing prizes, sponsored by the Ebay, Amazon and Vodafone.
+                    Solve each level and get amazing prizes, sponsored by the <a href="http://www.ebay.in/" target="_blank">eBay</a>,
+                    <a href="http://www.cleartrip.com/" target="_blank">Cleartrip</a>,  <a href="http://www.americanswan.com/" target="_blank">American Swan</a>
+                    and <a href="http://500px.com/" target="_blank">500px</a>.
                 </p>
                 <p class="text-center">
-                    <img class="img-thumbnail" src="https://placehold.it/100x100"/>
-                    <img class="img-thumbnail" src="https://placehold.it/100x100"/>
-                    <img class="img-thumbnail" src="https://placehold.it/100x100"/>
+                    <a href="http://www.ebay.in/" target="_blank"><img class="img-thumbnail sponsor" src="https://cdn4.iconfinder.com/data/icons/flat-brand-logo-2/512/ebay-256.png" /></a>
+                    <a href="http://www.cleartrip.com/" target="_blank"><img class="img-thumbnail sponsor" src="http://domaindisputesindia.com/wp-content/uploads/2013/03/cleartrip_logo.jpeg" /></a>
+                    <a href="http://www.americanswan.com/" target="_blank"><img class="img-thumbnail sponsor" src="http://static.americanswan.com/Lecom_Magento/skin/frontend/enterprise/lecom/images-v3/as-logo-new.png" /></a>
+                    <a href="http://500px.com/" target="_blank"><img class="img-thumbnail sponsor" src="https://camo.githubusercontent.com/e058bc1d6d4a60162abd9eff196e7d59b3d2c5a6/687474703a2f2f7777312e70727765622e636f6d2f707266696c65732f323031322f30342f31392f393432313937372f67495f3132323336355f35303070785f6c6f676f5f3235302e706e67" /></a>
                 </p>
 
             </div>

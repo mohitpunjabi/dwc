@@ -6234,6 +6234,18 @@ label,
 .logo {
   font-family: "Lato", Helvetica, Arial, sans-serif;
 }
+.main h1.logo {
+  font-size: 6em;
+}
+.main p.logo {
+  font-size: 2em;
+  font-weight: 200;
+}
+@media screen and (max-width: 991px) {
+  .main h1.logo {
+    font-size: 3em;
+  }
+}
 .welcome .page-header h1 {
   font-size: 4em;
 }
@@ -6242,6 +6254,11 @@ label,
 }
 .facebook-like {
   margin: 30px 0px;
+}
+.img-thumbnail.sponsor {
+  height: 100px;
+  margin: 5px;
+  padding: 10px;
 }
 .btn-circle {
   width: 70px;

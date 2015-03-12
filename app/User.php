@@ -43,6 +43,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return "http://www.gravatar.com/avatar/$hash";
     }
 
+    public function getNameAttribute()
+    {
+        return ucwords(strtolower($this->attributes['name']));
+    }
+
     public function level()
     {
         return $this->belongsTo('App\Level');
