@@ -6314,6 +6314,11 @@ label,
 .level-answer {
   margin-top: 0;
 }
+.level-prize {
+  background: mediumseagreen;
+  border-color: darkslategrey;
+  color: white;
+}
 .rating {
   direction: rtl;
   width: 100%;

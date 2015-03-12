@@ -5,7 +5,13 @@
 @section('content')
     <div class="container">
         <div class="row">
+
             <div class="col-lg-6 col-lg-offset-3 col-sm-offset-1 col-sm-10">
+                @if($level->prize)
+                    <div class="alert alert-info alert-dismissable">
+                        Solve this level and get a prize from Ebay or something.
+                    </div>
+                @endif
                 @if($level->image)
                     <div>
                         <img class="center-block img-responsive level-image glyphicon" src="{{ $level->image }}" alt="{{ $level->image_tooltip or '' }}" />
@@ -30,8 +36,13 @@
                 @endif
             </div>
         </div>
-
         @include('partials.ad')
     </div>
 
+@stop
+
+@section('comments')
+<!---------------------------------------
+{{ $level->source }}
+----------------------------------------->
 @stop

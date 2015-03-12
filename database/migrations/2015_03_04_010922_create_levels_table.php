@@ -20,10 +20,12 @@ class CreateLevelsTable extends Migration {
             $table->string('image')->nullable();
             $table->string('image_tooltip')->nullable();
             $table->string('hint')->nullable();
+            $table->text('source')->nullable();
             $table->string('answer_format');
             $table->string('answer');
             $table->integer('points');
             $table->text('solution');
+            $table->text('prize')->nullable();
 			$table->timestamps();
 		});
 	}

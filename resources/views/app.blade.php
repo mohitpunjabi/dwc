@@ -25,3 +25,5 @@
 	@yield('content')
 </body>
 </html>
+
+@yield('comments', '')

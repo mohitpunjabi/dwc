@@ -8,7 +8,19 @@ class Level extends Model {
 
     protected $table = 'levels';
 
-    protected $fillable = ['slug', 'title', 'image', 'image_tooltip', 'hint', 'answer_format', 'answer', 'points', 'solution'];
+    protected $fillable = [
+        'slug',
+        'title',
+        'image',
+        'image_tooltip',
+        'hint',
+        'source',
+        'answer_format',
+        'answer',
+        'points',
+        'solution',
+        'prize'
+    ];
 
     /**
      * Saves the image to a location, and sets it's URL  to the database.
