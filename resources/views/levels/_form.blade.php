@@ -40,8 +40,8 @@
 </div>
 
 <div>
-    {!! Form::label('answer-format', 'Characters allowed in answer') !!}
-    {!! Form::text('answer-format', null, ['class' => 'form-control', 'placeholder' => 'Characters allowed in answer']) !!}
+    {!! Form::label('answer_format', 'Characters allowed in answer') !!}
+    {!! Form::text('answer_format', null, ['class' => 'form-control', 'placeholder' => 'Characters allowed in answer']) !!}
     <label class="help-block">Must be a valid regular expression. Eg: <code>[a-z]</code> for alphabets only, <code>[a-z0-9]</code> for alphabets or numbers, <code>[abcde42]</code> if only <code>a, b, c, d, e, 4, 2</code> are allowed, and so on.</label>
 </div>
 
