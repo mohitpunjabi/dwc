@@ -1,5 +1,6 @@
 <?php namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Attempt extends Model {
@@ -30,6 +31,7 @@ class Attempt extends Model {
         if($this->answer == $this->level->answer)
         {
             $this->user->level_id = Level::where('id', '>', $this->level->id)->orderBy('id', 'asc')->first()->id;
+            $this->user->level_solved_at = Carbon::now();
             $this->user->save();
             return true;
         }

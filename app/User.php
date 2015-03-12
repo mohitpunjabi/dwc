@@ -80,6 +80,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function scopeRanklist($query)
     {
-        return $query->notAdmin()->orderBy('level_id', 'desc')->orderBy('updated_at', 'asc');
+        return $query->notAdmin()
+                     ->orderBy('level_id', 'desc')
+                     ->orderBy('level_solved_at', 'asc');
     }
 }
