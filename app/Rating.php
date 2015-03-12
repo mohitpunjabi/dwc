@@ -16,9 +16,4 @@ class Rating extends Model {
         return $this->belongsTo('App\Level');
     }
 
-    public function scopeAverage($query)
-    {
-        return $query->avg('rating');
-    }
-
 }
