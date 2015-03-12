@@ -31,7 +31,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
-    protected $appends = ['gravatar'];
+    protected $appends = ['gravatar', 'score'];
 
     /**
      * Mutator to get the gravatar for the user.
@@ -58,8 +58,23 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Rating');
     }
 
+    public function scopeNotAdmin($query)
+    {
+        return $query->where('is_admin', '=', '0');
+    }
+
     public function scopeSolved($query)
     {
         return $query->where('id', '<', $this->level->id);
+    }
+
+    public function getScoreAttribute()
+    {
+        return Level::where('id', '<', $this->level_id)->sum('points');
+    }
+
+    public function scopeRanklist($query)
+    {
+        return $query->notAdmin()->orderBy('level_id', 'desc')->orderBy('updated_at', 'asc');
     }
 }

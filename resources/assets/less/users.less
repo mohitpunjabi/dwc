@@ -1,42 +1,30 @@
-@user-image-height: 42px;
-
 .user {
   &-image {
-    float: left;
-    margin: 0px 7px 5px 0px;
+    display: inline-block;
+    img {
+      max-height: 2.2em;
+    }
+  }
+
+  &-details {
+    display: inline-block;
+    vertical-align: top;
   }
 
   &-name {
-    font-weight: bold;
+    font-weight: 400;
     margin: 0;
     padding: 0;
   }
 
-  .user-variant(@user-image-height);
-}
-
-.user-variant(@size) {
-  .user-image {
-    .square(@size);
-  }
-
   .user-name {
-    font-size: @size / 4;
+    font-size: 1em;
+    line-height: 1.1;
   }
 
   .user-score {
-    font-size: max(12px, @size / 5);
+    font-size: 0.9em;
+    line-height: 1.1;
+    margin: 0;
   }
-}
-
-
-
-.user-large {
-  .user-variant(100px);
-}
-
-
-.rank {
-  font-size: 20px;
-  display: inline-block;
 }

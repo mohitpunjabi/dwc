@@ -126,4 +126,5 @@ class LevelsController extends Controller {
         return redirect()->back()->withInputs($request->all());
     }
 
+
 }

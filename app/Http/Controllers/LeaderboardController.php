@@ -25,7 +25,7 @@ class LeaderboardController extends Controller {
      */
     public function index()
     {
-        $users = User::orderBy('level_id', 'desc')->orderBy('updated_at', 'asc')->get();
+        $users = User::ranklist()->paginate(100);
         return view('leaderboard', compact('users'));
     }
 
