@@ -25,7 +25,7 @@ class LeaderboardController extends Controller {
      */
     public function index()
     {
-        $users = User::ranklist()->paginate(100);
+        $users = User::ranklist()->paginate(50);
         return view('leaderboard', compact('users'));
     }
 
