@@ -14,7 +14,7 @@ class CheckScoreIsEnough {
 	 */
 	public function handle($request, Closure $next)
 	{
-        if($request->route('levels')->id > $request->user()->level->id)
+        if($request->route('levels')->id > $request->user()->level->id && ! $request->user()->is_admin)
         {
             throw new HttpException(403);
         }

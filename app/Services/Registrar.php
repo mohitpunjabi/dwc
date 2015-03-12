@@ -34,7 +34,7 @@ class Registrar implements RegistrarContract {
 			'name' => $data['name'],
 			'email' => $data['email'],
 			'password' => bcrypt($data['password']),
-            'is_admin' => true,
+            'is_admin' => false,
             'level_id' => Level::first()? Level::first()->id: NULL
 		]);
 	}

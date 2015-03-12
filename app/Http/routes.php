@@ -24,3 +24,7 @@ Route::resource('levels', 'LevelsController');
 Route::post('levels/{levels}/attempt', 'LevelsController@attempt');
 Route::post('levels/{levels}/rate', 'LevelsController@rate');
 Route::get('levels/{levels}/{slug}', 'LevelsController@show');
+
+Route::resource('users', 'UsersController');
+
+Route::get('admin', 'AdminController@index');
