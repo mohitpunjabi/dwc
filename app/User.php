@@ -82,6 +82,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $query->notAdmin()
                      ->orderBy('level_id', 'desc')
-                     ->orderBy('level_solved_at', 'asc');
+                     ->orderBy('level_solved_at', 'asc')
+                     ->orderBy('created_at', 'asc');
     }
 }
