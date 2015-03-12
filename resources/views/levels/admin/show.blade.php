@@ -24,7 +24,7 @@
                 <a href="{{ route('levels.edit', $level->id) }}" class="btn btn-primary btn-block level-edit"><i class="glyphicon glyphicon-edit"></i> Edit</a>
 
                 <p>
-                    <strong>Average rating:</strong> {{ $rating }}
+                    <strong>Average rating:</strong> {{ $rating or '-' }}
                 </p>
 
             </div>
