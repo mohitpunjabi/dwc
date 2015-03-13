@@ -28,3 +28,4 @@ Route::get('levels/{levels}/{slug}', 'LevelsController@show');
 Route::resource('users', 'UsersController');
 
 Route::get('admin', 'AdminController@index');
+Route::get('admin/sendMail', 'AdminController@sendMail');
