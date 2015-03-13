@@ -25,6 +25,11 @@ Route::post('levels/{levels}/attempt', 'LevelsController@attempt');
 Route::post('levels/{levels}/rate', 'LevelsController@rate');
 Route::get('levels/{levels}/{slug}', 'LevelsController@show');
 
-Route::resource('users', 'UsersController');
+Route::get('users/count/{allOrActive}', 'UsersController@count');
+Route::get('users/recent', 'UsersController@recent');
+
+Route::get('attempts/count', 'AttemptsController@count');
+Route::get('attempts', 'AttemptsController@index');
 
 Route::get('admin', 'AdminController@index');
+Route::get('admin/sendMail', 'AdminController@sendMail');

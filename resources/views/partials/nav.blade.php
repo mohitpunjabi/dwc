@@ -18,7 +18,11 @@
                 @if(Auth::user())
                     <li><a href="{{ url('/leaderboard') }}">Leaderboard</a></li>
                     <li><a href="{{ url('/levels') }}">Levels</a></li>
+                    @if(Auth::user()->is_admin)
+                        <li><a href="{{ url('/admin') }}">Admin</a></li>
+                    @endif
                 @endif
+
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

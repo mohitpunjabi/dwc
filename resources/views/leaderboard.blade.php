@@ -22,7 +22,6 @@
                         <?php
                         $user = $users[$rank - 1];
                         $actualRank = $users->perPage() * ($users->currentPage() - 1) + $rank;
-                        $userClass = ($actualRank === 1)? 'user-large': '';
                         $rowClass = ($actualRank === 1)? 'row-large ': ' ';
                         $rowClass .= ($user == Auth::user())? 'current ': ' ';
                         ?>
@@ -32,15 +31,7 @@
                                 #{{ $actualRank }}
                             </td>
                             <td>
-                                <div class="user {{ $userClass }}">
-                                    <div class="user-image hidden-sm hidden-xs">
-                                        <img src="{{ $user->gravatar }}" title="{{ $user->name }}" />
-                                    </div>
-                                    <div class="user-details">
-                                        <p class="user-name">{{ $user->name }}</p>
-                                        <p class="user-score">Level {{ $user->level_id }}</p>
-                                    </div>
-                                </div>
+                                @include('partials.user', ['user' => $user, 'large' => ($actualRank == 1)])
                             </td>
                             <td>
                                 {{ $user->score }}
