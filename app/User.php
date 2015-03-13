@@ -1,5 +1,6 @@
 <?php namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -84,5 +85,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                      ->orderBy('level_id', 'desc')
                      ->orderBy('level_solved_at', 'asc')
                      ->orderBy('created_at', 'asc');
+    }
+
+    public function scopeActive($query)
+    {
+        $query->where('updated_at', '>', Carbon::now()->subMinutes(5)->toDateTimeString());
     }
 }

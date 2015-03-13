@@ -9,7 +9,7 @@ class Attempt extends Model {
 
     protected $fillable = ['answer'];
 
-    protected $appends = ['attempted_at', 'is_successful'];
+    protected $appends = ['attempted_at'];
 
     public function getAttemptedAtAttribute()
     {
@@ -28,6 +28,7 @@ class Attempt extends Model {
 
     public function checkSuccess()
     {
+        $this->user->touch();
         if($this->answer == $this->level->answer)
         {
             $this->user->level_id = Level::where('id', '>', $this->level->id)->orderBy('id', 'asc')->first()->id;

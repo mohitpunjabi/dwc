@@ -20,7 +20,7 @@ class AdminController extends Controller {
 
     public function index()
     {
-        dd("Welcome admin");
+        return view('admin.dashboard');
     }
 
     public function sendMail()
