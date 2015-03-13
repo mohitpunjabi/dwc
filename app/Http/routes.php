@@ -20,6 +20,9 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+Route::resource('special_pages', 'SpecialPagesController');
+Route::get('special_pages/{slug}', 'SpecialPagesController@show');
+
 Route::resource('levels', 'LevelsController');
 Route::post('levels/{levels}/attempt', 'LevelsController@attempt');
 Route::post('levels/{levels}/rate', 'LevelsController@rate');
@@ -33,3 +36,5 @@ Route::get('attempts', 'AttemptsController@index');
 
 Route::get('admin', 'AdminController@index');
 Route::get('admin/sendMail', 'AdminController@sendMail');
+
+Route::get('{slug}', 'SpecialPagesController@show');

@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="row">
                     <div class="col-md-4 col-sm-4 text-center">
                         <h1 style="font-size:6em" class="live-data" data-source="{{ url('users/count/all') }}" data-interval="20000">0</h1>
@@ -35,7 +35,7 @@
                 </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-7">
             <div class="panel panel-primary">
                 <div class="panel-heading">Recent attempts</div>
                 <div class="panel-body">
@@ -62,6 +62,7 @@
 
     <script type="text/javascript">
         $(function() {
+            $.fn.dataTable.ext.errMode = 'none';
             $('.live-table').each(function() {
                 var fields = $(this).find("th");
                 var columns = [];

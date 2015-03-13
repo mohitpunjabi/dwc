@@ -9,12 +9,12 @@ use App\Http\Requests\RatingRequest;
 use App\Level;
 use App\LevelAttempt;
 use App\Rating;
+use App\SpecialPage;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-// TODO Add auth
 class LevelsController extends Controller {
 
     public function __construct()
@@ -45,25 +45,31 @@ class LevelsController extends Controller {
         return view("levels.create");
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param LevelRequest $request
+     * @return Response
+     */
 	public function store(LevelRequest $request)
 	{
 		Level::create($request->all());
         return redirect('levels');
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Display the specified resource.
+     *
+     * @param Level $level
+     * @param null $slug
+     * @return Response
+     * @internal param int $id
+     */
 	public function show(Level $level, $slug = null)
 	{
+        $special = SpecialPage::whereSlug($slug)->first();
+        if($special)                         return redirect(url($special->slug));
+
         if($slug != $level->slug)            return redirect(route('levels.show', $level->id) . '/' . $level->slug);
 
         if(Auth::user()->is_admin)           return view('levels.admin.show', ['level' => $level, 'rating' => $level->ratings()->avg('rating')]);
@@ -72,35 +78,40 @@ class LevelsController extends Controller {
         return view('levels.solution', compact('level', 'showRating'));
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Level $level
+     * @return Response
+     * @internal param int $id
+     */
 	public function edit(Level $level)
 	{
         return view('levels.edit', ['level' => $level]);
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Level $level
+     * @param LevelRequest $request
+     * @return Response
+     * @internal param int $id
+     */
 	public function update(Level $level, LevelRequest $request)
 	{
         $level->update($request->all());
         return redirect('levels');
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Level $level
+     * @return Response
+     * @throws \Exception
+     * @internal param int $id
+     */
 	public function destroy(Level $level)
 	{
         $level->delete();

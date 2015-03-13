@@ -10,7 +10,7 @@
             <div class="col-md-3 col-md-offset-1">
                 @if($level->image)
                     <div>
-                        <img class="center-block img-responsive level-image" src="{{ $level->image }}" alt="{{ $level->image_tooltip or '' }}" />
+                        <img class="center-block img-responsive level-image" src="{{ $level->image }}" alt="{{ $level->image_tooltip or '' }}" title="{{ $level->image_tooltip or '' }}" />
                     </div>
                 @endif
                 <br />

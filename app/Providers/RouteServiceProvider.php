@@ -25,6 +25,7 @@ class RouteServiceProvider extends ServiceProvider {
 		parent::boot($router);
 
 		$router->model('levels', 'App\Level');
+        $router->model('special_pages', 'App\SpecialPage');
 	}
 
 	/**
