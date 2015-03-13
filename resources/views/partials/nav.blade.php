@@ -19,6 +19,7 @@
                     <li><a href="{{ url('/leaderboard') }}">Leaderboard</a></li>
                     <li><a href="{{ url('/levels') }}">Levels</a></li>
                     @if(Auth::user()->is_admin)
+                        <li><a href="{{ url('/special_pages') }}">Special Pages</a></li>
                         <li><a href="{{ url('/admin') }}">Admin</a></li>
                     @endif
                 @endif

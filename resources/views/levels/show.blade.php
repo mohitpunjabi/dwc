@@ -1,5 +1,7 @@
 @extends('app')
 
+@section('meta-description'){{ $level->hint or 'There is but one rule. Hunt, or be hunted.'}}@stop
+
 @section('title'){{ $level->title or ''}}@stop
 
 @section('content')
