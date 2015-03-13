@@ -12,7 +12,7 @@
                         <p class="lead">users registered</p>
                     </div>
                     <div class="col-md-4 col-sm-4 text-center">
-                        <h1 style="font-size:6em" class="live-data" data-source="{{ url('users/count/active') }}" data-interval="1000">0</h1>
+                        <h1 style="font-size:6em" class="live-data" data-source="{{ url('users/count/active') }}" data-interval="5000">0</h1>
                         <p class="lead">users active</p>
                     </div>
                     <div class="col-md-4 col-sm-4 text-center">
