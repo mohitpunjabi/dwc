@@ -30,6 +30,8 @@ Route::get('levels/{levels}/{slug}', 'LevelsController@show');
 
 Route::get('users/count/{allOrActive}', 'UsersController@count');
 Route::get('users/recent', 'UsersController@recent');
+Route::get('users/{users}/test', 'UsersController@test');
+Route::get('users/{users}/untest', 'UsersController@untest');
 
 Route::get('ratings', 'RatingsController@index');
 

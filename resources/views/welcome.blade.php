@@ -134,7 +134,8 @@
             <div class="text-center">
                 For more details, log on to
                 <a href="http://www.VVSdotball64dotball2Wlaxman.com">www.VVSdotball64dotball2Wlaxman.com</a> and say
-                Ooo Ahaa Glenn McGrath!
+                <a href="{{ url('glennmcgrath') }}">Ooo Ahaa Glenn McGrath!</a>
+
             </div>
 
             <hr/>

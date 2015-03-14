@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller {
 
@@ -35,6 +36,25 @@ class UsersController extends Controller {
             $user->from_now = $user->created_at->diffForHumans();
         }
         return $users;
+    }
+
+    public function test($id)
+    {
+        $user = User::findOrFail($id);
+        DB::table('test_users')->insert(
+            array('user_id' => $id)
+        );
+
+        return $user;
+    }
+
+
+    public function untest($id)
+    {
+        $user = User::findOrFail($id);
+        DB::table('test_users')->where('user_id', '=', $id)->delete();
+
+        return $user;
     }
 
     public function count($allOrActive)
