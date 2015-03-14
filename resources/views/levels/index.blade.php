@@ -7,6 +7,7 @@
                 All levels
                 @if(Auth::user()->is_admin)
                     <a class="btn btn-default" href="{{ route("levels.create") }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
+                    <small><a href="{{ url("admin/hints") }}">View all image hints</a></small>
                 @endif
             </h1>
 

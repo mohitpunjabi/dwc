@@ -38,5 +38,8 @@ Route::get('attempts', 'AttemptsController@index');
 
 Route::get('admin', 'AdminController@index');
 Route::get('admin/sendMail', 'AdminController@sendMail');
+Route::get('admin/hints', 'AdminController@hints');
+
+
 
 Route::get('{slug}', 'SpecialPagesController@show');

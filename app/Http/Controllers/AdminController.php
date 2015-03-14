@@ -7,6 +7,7 @@ use App\Subscriber;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller {
@@ -21,6 +22,12 @@ class AdminController extends Controller {
     public function index()
     {
         return view('admin.dashboard');
+    }
+
+    public function hints()
+    {
+        $hints = File::allFiles("img/hints");
+        return view('admin.hints', compact('hints'));
     }
 
     public function sendMail()
