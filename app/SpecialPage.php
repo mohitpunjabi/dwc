@@ -46,5 +46,9 @@ class SpecialPage extends Model {
         }
     }
 
+    public function visitedBy()
+    {
+        return $this->belongsToMany('App\User')->withTimestamps();
+    }
 
 }

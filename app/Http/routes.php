@@ -31,6 +31,8 @@ Route::get('levels/{levels}/{slug}', 'LevelsController@show');
 Route::get('users/count/{allOrActive}', 'UsersController@count');
 Route::get('users/recent', 'UsersController@recent');
 
+Route::get('ratings', 'RatingsController@index');
+
 Route::get('attempts/count', 'AttemptsController@count');
 Route::get('attempts', 'AttemptsController@index');
 

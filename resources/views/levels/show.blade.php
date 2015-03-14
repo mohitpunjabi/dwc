@@ -11,7 +11,7 @@
             <div class="col-lg-6 col-lg-offset-3 col-sm-offset-1 col-sm-10">
                 @if($level->prize)
                     <div class="alert alert-info alert-dismissable">
-                        Solve this level and get a prize from Ebay or something.
+                        Solve this level and get a prize.
                     </div>
                 @endif
                 @if($level->image)

@@ -64,6 +64,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Rating');
     }
 
+    public function visits()
+    {
+        return $this->belongsToMany('App\SpecialPage')->withTimestamps();
+    }
+
     public function scopeNotAdmin($query)
     {
         return $query->where('is_admin', '=', '0');

@@ -4,7 +4,10 @@ use App\Attempt;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\SpecialPage;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AttemptsController extends Controller {
 
@@ -20,8 +23,17 @@ class AttemptsController extends Controller {
      */
     public function index()
     {
-        $attempts = Attempt::take(40);
-        return ['data' => Attempt::with('user')->orderBy('created_at', 'desc')->take(42)->get()];
+        $attempts =  Attempt::orderBy('created_at', 'desc')
+            ->take(42)
+            ->addSelect('user_id', 'level_id', 'answer', 'created_at')
+            ->with('user')
+            ->get();
+
+        foreach($attempts as $attempt) {
+            $attempt->user->image = '<img src="'.$attempt->user->gravatar.'" />';
+            $attempt->from_now = $attempt->created_at->diffForHumans();
+        }
+        return $attempts;
     }
 
     public function count()

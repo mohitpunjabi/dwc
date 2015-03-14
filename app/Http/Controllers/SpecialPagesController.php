@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SpecialPageRequest;
 use App\SpecialPage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SpecialPagesController extends Controller {
 
@@ -56,6 +57,7 @@ class SpecialPagesController extends Controller {
     public function show($slug)
     {
         $page = SpecialPage::where('slug', $slug)->firstOrFail();
+        $page->visitedBy()->attach(Auth::user());
         return view('special_pages.show', compact('page'));
     }
 

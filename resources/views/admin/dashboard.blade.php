@@ -21,15 +21,65 @@
                     </div>
                 </div>
 
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Recent ratings</div>
+                    <div class="panel-body">
+                        <table class="table live-table table-striped table-condensed" data-source="{{ url('/ratings') }}" data-interval="20000">
+                            <thead>
+                            <th>Level</th>
+                            <th>User</th>
+                            <th>Rating</th>
+                            <th>On</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td data-field="level_id"></td>
+                                <td>
+                                    <div class="user">
+                                        <div class="user-image hidden-sm hidden-xs" data-field="user.image"></div>
+                                        <div class="user-details">
+                                            <p class="user-name" data-field="user.name"></p>
+                                            <p class="user-score" data-field="user.email"></p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-field="stars"></td>
+                                <td data-field="from_now"></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
                 <div class="panel panel-default">
                     <div class="panel-heading">Recent registrations</div>
                     <div class="panel-body">
                         <table class="table live-table table-striped table-condensed" data-source="{{ url('/users/recent') }}" data-interval="20000">
                             <thead>
-                            <th data-field="id">Id</th>
-                            <th data-field="name">Name</th>
-                            <th data-field="email">Email</th>
+                                <th>Id</th>
+                                <th>User</th>
+                                <th>On</th>
                             </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-field="id"></td>
+                                    <td>
+                                        <div class="user">
+                                            <div class="user-image hidden-sm hidden-xs" data-field="image"></div>
+                                            <div class="user-details">
+                                                <p class="user-name" data-field="name"></p>
+                                                <p class="user-score" data-field="email"></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td data-field="from_now"></td>
+                                </tr>
+
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -39,13 +89,31 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Recent attempts</div>
                 <div class="panel-body">
-                    <table id="attempts" class="table live-table table-striped table-condensed" data-source="{{ url('/attempts') }}" data-interval="7000">
+                    <table id="attempts" class="table live-table table-striped table-condensed" data-source="{{ url('/attempts') }}" data-interval="3000">
                         <thead>
-                        <th data-field="level_id">Level</th>
-                        <th data-field="user.name">User</th>
-                        <th data-field="user.email">Email</th>
-                        <th data-field="answer">Attempt</th>
+                            <th>Level</th>
+                            <th>User</th>
+                            <th>Attempt</th>
+                            <th>On</th>
                         </thead>
+
+                        <tbody>
+                            <tr>
+
+                                <td data-field="level_id"></td>
+                                <td>
+                                    <div class="user">
+                                        <div class="user-image hidden-sm hidden-xs" data-field="user.image"></div>
+                                        <div class="user-details">
+                                            <p class="user-name" data-field="user.name"></p>
+                                            <p class="user-score" data-field="user.email"></p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-field="answer"></td>
+                                <td data-field="from_now"></td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -53,7 +121,11 @@
 @stop
 
 @section('styles')
-    <link rel="stylesheet" href="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.css" type="text/css" />
+    <style type="text/css">
+        .live-table tbody tr:first-child {
+            display: none;
+        }
+    </style>
 @stop
 
 @section('scripts')
@@ -61,45 +133,67 @@
     <script src="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 
     <script type="text/javascript">
-        $(function() {
-            $.fn.dataTable.ext.errMode = 'none';
-            $('.live-table').each(function() {
-                var fields = $(this).find("th");
-                var columns = [];
-                var $this = $(this);
-                for(var i = 0; i < fields.length; i++) columns.push({"data": $(fields[i]).data('field')});
+        $.fn.extend({
+            liveTable: function() {
+                return $(this).each(function() {
+                    var $this = $(this);
+                    var $tbody = $this.find('tbody');
+                    var $tr = $tbody.find('tr').first();
+                    var interval = $this.data('interval');
+                    var source = $this.data('source');
 
-                console.log($this.data('source'));
-                $this.dataTable({
-                    "ajax":     $this.data('source'),
-                    "paging":   false,
-                    "ordering": false,
-                    "info":     false,
-                    "filter":   false,
-                    "columns":  columns
+                    var _updateData = function(data) {
+                        var $rows = [$tr];
+                        for(var i = 0; i < data.length; i++) {
+                            var $newTr = $tr.clone();
+                            $newTr.find('[data-field]').each(function() {
+                                var keys = $(this).data('field').split(".");
+                                var newData = data[i];
+                                for(var j = 0; j < keys.length; j++) newData = newData[keys[j]];
+                                $(this).html(newData);
+                            });
+
+                            $rows.push($newTr);
+                        }
+
+                        $tbody.html($rows);
+                    };
+
+                    var _fetchData = function() {
+                        $.ajax({
+                            url: source
+                        }).success(function(data) {
+                            _updateData(data);
+                            setTimeout(_fetchData, interval);
+                        });
+                    };
+
+                    _fetchData();
                 });
+            }
+        });
 
-                setInterval(function() {
-                    $this.dataTable()._fnAjaxUpdate();
-                }, $this.data("interval"));
-            });
-
+        $(function() {
+            $(".live-table").liveTable();
 
             $('.live-data').each(function() {
                 var $this = $(this);
-                $.ajax({
-                    url: $this.data('source')
-                }).success(function(data) {
+                var source = $this.data('source');
+                var interval = $this.data('interval');
+                var _updateData = function(data) {
                     $this.html(data);
-                });
+                };
 
-                setInterval(function() {
+                var _fetchData = function() {
                     $.ajax({
-                        url: $this.data('source')
+                        url: source
                     }).success(function(data) {
-                        $this.html(data);
+                        _updateData(data);
+                        setTimeout(_fetchData, interval);
                     });
-                }, $this.data('interval'));
+                };
+
+                _fetchData();
             });
 
         });

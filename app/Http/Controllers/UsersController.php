@@ -21,23 +21,27 @@ class UsersController extends Controller {
 	 */
 	public function index()
 	{
-        $users = User::orderBy('created_at')->get();
-        return ['data' => $users];
+        return User::orderBy('created_at')->get();
 	}
 
     public function recent()
     {
-        $users = User::orderBy('created_at', 'desc')->take(20)->get();
-        return ['data' => $users];
+        $users = User::orderBy('created_at', 'desc')
+            ->take(20)
+            ->get();
+
+        foreach($users as $user) {
+            $user->image = '<img src="'.$user->gravatar.'" />';
+            $user->from_now = $user->created_at->diffForHumans();
+        }
+        return $users;
     }
 
 
     public function count($allOrActive)
     {
-        if($allOrActive == 'all')
-            return User::notAdmin()->count();
-        if($allOrActive == 'active')
-            return User::notAdmin()->active()->count();
+        if($allOrActive == 'all')    return User::notAdmin()->count();
+        if($allOrActive == 'active') return User::notAdmin()->active()->count();
     }
 
 }

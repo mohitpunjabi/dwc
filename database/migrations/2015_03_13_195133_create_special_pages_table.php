@@ -24,6 +24,26 @@ class CreateSpecialPagesTable extends Migration {
             $table->string('og_image')->nullable();
             $table->timestamps();
 		});
+
+        Schema::create('special_page_user', function(Blueprint $table)
+        {
+            $table->increments('id');
+            $table->integer('special_page_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->timestamps();
+
+            $table->foreign('special_page_id')
+                  ->references('id')
+                  ->on('special_pages')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('user')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+        });
 	}
 
 	/**
@@ -33,6 +53,7 @@ class CreateSpecialPagesTable extends Migration {
 	 */
 	public function down()
 	{
+        Schema::drop('special_page_user');
 		Schema::drop('special_pages');
 	}
 
