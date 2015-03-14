@@ -37,11 +37,10 @@ class UsersController extends Controller {
         return $users;
     }
 
-
     public function count($allOrActive)
     {
-        if($allOrActive == 'all')    return User::notAdmin()->count();
-        if($allOrActive == 'active') return User::notAdmin()->active()->count();
+        if($allOrActive == 'all')    return User::notAdmin()->notTest()->count();
+        if($allOrActive == 'active') return User::notAdmin()->notTest()->active()->count();
     }
 
 }

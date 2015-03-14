@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Support\Facades\DB;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
@@ -74,6 +75,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $query->where('is_admin', '=', '0');
     }
 
+    public function scopeNotTest($query)
+    {
+        return $query->whereNotExists(function($query)
+        {
+            $query->select(DB::raw(1))
+                  ->from('test_users')
+                  ->whereRaw('users.id = test_users.user_id');
+        });
+    }
+
+
     public function scopeSolved($query)
     {
         return $query->where('id', '<', $this->level->id);
@@ -87,6 +99,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function scopeRanklist($query)
     {
         return $query->notAdmin()
+                     ->notTest()
                      ->orderBy('level_id', 'desc')
                      ->orderBy('level_solved_at', 'asc')
                      ->orderBy('created_at', 'asc');
