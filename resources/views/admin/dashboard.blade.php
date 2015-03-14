@@ -21,9 +21,9 @@
                     </div>
                 </div>
 
-                <div class="panel panel-default">
+                <div class="panel panel-default" data-toggle="collapse" data-parent=".row" data-target="#visits">
                     <div class="panel-heading">Recent page visits</div>
-                    <div class="panel-body">
+                    <div id="visits" class="panel-body panel-collapse collapse in">
                         <table class="table live-table table-striped table-condensed" data-source="{{ url('/special_pages/visits') }}" data-interval="20000">
                             <thead>
                             <th>User</th>
@@ -50,11 +50,9 @@
                     </div>
                 </div>
 
-
-
-                <div class="panel panel-default">
+                <div class="panel panel-default" data-toggle="collapse" data-parent=".row" data-target="#ratings">
                     <div class="panel-heading">Recent ratings</div>
-                    <div class="panel-body">
+                    <div id="ratings" class="panel-body panel-collapse collapse in">
                         <table class="table live-table table-striped table-condensed" data-source="{{ url('/ratings') }}" data-interval="20000">
                             <thead>
                             <th>Level</th>
@@ -83,11 +81,9 @@
                     </div>
                 </div>
 
-
-
-                <div class="panel panel-default">
+                <div class="panel panel-default" data-toggle="collapse" data-parent=".row" data-target="#registrations">
                     <div class="panel-heading">Recent registrations</div>
-                    <div class="panel-body">
+                    <div id="registrations" class="panel-body panel-collapse collapse in">
                         <table class="table live-table table-striped table-condensed" data-source="{{ url('/users/recent') }}" data-interval="20000">
                             <thead>
                                 <th>Id</th>
@@ -113,10 +109,11 @@
                         </table>
                     </div>
                 </div>
-        </div>
+            </div>
 
-        <div class="col-md-7">
-            <div class="panel panel-primary">
+            <div class="col-md-7">
+
+                <div class="panel panel-primary">
                 <div class="panel-heading">Recent attempts</div>
                 <div class="panel-body">
                     <table id="attempts" class="table live-table table-striped table-condensed" data-source="{{ url('/attempts') }}" data-interval="3000">
@@ -147,6 +144,9 @@
                     </table>
                 </div>
             </div>
+
+            </div>
+        </div>
     </div>
 @stop
 
@@ -154,6 +154,10 @@
     <style type="text/css">
         .live-table tbody tr:first-child {
             display: none;
+        }
+
+        .panel-heading {
+            cursor: pointer;
         }
     </style>
 @stop
