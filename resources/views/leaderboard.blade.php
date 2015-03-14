@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h1 class="page-header">Leaderboard</h1>
+                @include('partials.ad')
 
                 <div class="text-right">
                     {!! $users->render() !!}
