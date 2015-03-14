@@ -5,8 +5,10 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\SpecialPageRequest;
 use App\SpecialPage;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SpecialPagesController extends Controller {
 
@@ -101,4 +103,20 @@ class SpecialPagesController extends Controller {
         return redirect('special_pages');
     }
 
+    public function allVisits()
+    {
+        $visits = DB::table('special_page_user')
+            ->join('special_pages', 'special_pages.id', '=', 'special_page_user.special_page_id')
+            ->join('users', 'users.id', '=', 'special_page_user.user_id')
+            ->select(['special_page_user.created_at', 'special_pages.slug', 'users.name', 'users.email'])
+            ->orderBy('special_page_user.created_at', 'desc')
+            ->take(10)
+            ->get();
+
+        foreach($visits as $visit) {
+            $visit->from_now = Carbon::createFromFormat('Y-m-d H:i:s', $visit->created_at)->diffForHumans();
+        }
+
+        return $visits;
+    }
 }

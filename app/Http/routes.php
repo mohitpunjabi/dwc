@@ -20,6 +20,7 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+Route::get('special_pages/visits', 'SpecialPagesController@allVisits');
 Route::resource('special_pages', 'SpecialPagesController');
 Route::get('special_pages/{slug}', 'SpecialPagesController@show');
 

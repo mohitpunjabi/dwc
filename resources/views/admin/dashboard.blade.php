@@ -21,6 +21,36 @@
                     </div>
                 </div>
 
+                <div class="panel panel-default">
+                    <div class="panel-heading">Recent page visits</div>
+                    <div class="panel-body">
+                        <table class="table live-table table-striped table-condensed" data-source="{{ url('/special_pages/visits') }}" data-interval="20000">
+                            <thead>
+                            <th>User</th>
+                            <th>Page</th>
+                            <th>When</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user">
+                                        <div class="user-image hidden-sm hidden-xs"></div>
+                                        <div class="user-details">
+                                            <p class="user-name" data-field="name"></p>
+                                            <p class="user-score" data-field="email"></p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-default" data-field="slug"></span></td>
+                                <td data-field="from_now"></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
 
                 <div class="panel panel-default">
                     <div class="panel-heading">Recent ratings</div>
@@ -30,7 +60,7 @@
                             <th>Level</th>
                             <th>User</th>
                             <th>Rating</th>
-                            <th>On</th>
+                            <th>When</th>
                             </thead>
                             <tbody>
                             <tr>
@@ -62,7 +92,7 @@
                             <thead>
                                 <th>Id</th>
                                 <th>User</th>
-                                <th>On</th>
+                                <th>When</th>
                             </thead>
                             <tbody>
                                 <tr>
@@ -94,7 +124,7 @@
                             <th>Level</th>
                             <th>User</th>
                             <th>Attempt</th>
-                            <th>On</th>
+                            <th>When</th>
                         </thead>
 
                         <tbody>
