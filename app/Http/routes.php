@@ -35,7 +35,10 @@ Route::get('users/count/{allOrActive}', 'UsersController@count');
 Route::get('users/{users}/chat', 'UsersController@chat');
 Route::get('users/{users}/test', 'UsersController@test');
 Route::get('users/{users}/untest', 'UsersController@untest');
+Route::get('users/{users}/attempts', 'UsersController@attempts');
+Route::get('users/{users}/ratings', 'UsersController@ratings');
 Route::get('users/recent', 'UsersController@recent');
+
 Route::resource('users', 'UsersController');
 
 

@@ -65,7 +65,26 @@ class UsersController extends Controller {
         if($allOrActive == 'active') return User::notAdmin()->notTest()->active()->count();
     }
 
-	/**
+
+    public function attempts(User $user, Request $request)
+    {
+        return $user->attempts()
+            ->orderBy('created_at', 'desc')
+            ->take(50)
+            ->with('user')
+            ->get();
+    }
+
+    public function ratings(User $user, Request $request)
+    {
+        return $user->ratings()
+            ->orderBy('created_at', 'desc')
+            ->addSelect('level_id', 'rating', 'created_at')
+            ->get();
+    }
+
+
+    /**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
@@ -85,16 +104,17 @@ class UsersController extends Controller {
 		//
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show(User $id)
+    /**
+     * Display the specified resource.
+     *
+     * @param User $user
+     * @return Response
+     * @internal param int $id
+     */
+	public function show(User $user)
 	{
-		//
-	}
+		return view('users.show', compact('user'));
+;	}
 
 	/**
 	 * Show the form for editing the specified resource.
