@@ -36,9 +36,29 @@
                         {{ $errors->first() }}
                     </div>
                 @endif
+
+
+                @unless(Auth::user()->chats->isEmpty())
+                        <br>
+                        <div class="panel">
+
+                            <div class="panel-body">
+                                <table id="chats" class="table live-table table-striped table-condensed" data-source="{{ url('users', Auth::user()->id).'/chats' }}" data-interval="5000">
+
+                                    <tbody>
+                                    <tr>
+                                        <td data-field="message"></td>
+                                        <td data-field="from_now"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                @endunless
+
+
             </div>
         </div>
-        @include('partials.ad')
     </div>
 
 @stop
@@ -47,4 +67,12 @@
 <!---------------------------------------
 {{ $level->source }}
 ----------------------------------------->
+@stop
+
+@section('scripts')
+    <script type="text/javascript">
+        $(function() {
+            $('.live-table').liveTable()
+        });
+    </script>
 @stop

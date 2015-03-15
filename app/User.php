@@ -57,7 +57,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             ->where(function($query) {
                 return $query->where('level_id', '>', $this->level_id)->orWhere(function ($query) {
                     return $query->where('level_id', '=', $this->level_id)
-                        ->where('updated_at', '<=', $this->updated_at);
+                        ->where('level_solved_at', '<=', $this->updated_at);
                     });
             })->count();
     }

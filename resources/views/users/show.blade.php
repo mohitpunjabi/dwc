@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title'){{ $user->name . ' | DaWhimsiCo'}}@stop
+@section('title'){{ $user->name . ' | DaWhimsiCo'}} @stop
 
 @section('content')
     <div class="container">
@@ -45,29 +45,48 @@
 
             <div class="col-md-4">
 
-                <div>
-                    {!! Form::label('message', 'Chat message - coming soon') !!}
-                    {!! Form::textarea('message', null, ['class' => 'form-control', 'placeholder' => 'Chat message - coming soon', 'rows' => 3]) !!}
-                    <label class="help-block"></label>
-                </div>
-                <button class="btn btn-block btn-primary">Send message</button>
+                @unless($user->chats->isEmpty())
+                    <table id="chats" class="table live-table table-striped table-condensed" data-source="{{ url('users', $user->id).'/chats' }}" data-interval="60000">
+                        <thead>
+                        <th>Message</th>
+                        <th>On</th>
+                        </thead>
 
-                <br><br>
+                        <tbody>
+                        <tr>
+                            <td data-field="message"></td>
+                            <td data-field="from_now"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                @endunless
 
-
-                <div class="panel panel-info">
-                    <div class="panel-heading">Chats</div>
-                    <div class="panel-body">
-
+                    {!! Form::open(['url' => ['users', $user->id, 'send']]) !!}
+                    <div>
+                        @if($errors->any())
+                            <div class="alert alert-danger level-alert">
+                                {{ $errors->first() }}
+                            </div>
+                        @endif
+                        {!! Form::label('message', 'Chat message - Beta') !!}
+                            {!! Form::textarea('message', null, ['class' => 'form-control', 'placeholder' => 'Don\'t send empty messages', 'rows' => '3']) !!}
+                        <label class="help-block"><b>Still in beta!</b> Test on test users before using</label>
                     </div>
-                </div>
-                
-                
-                
-                <div class="panel panel-default">
+                    <button type="submit" class="btn btn-block btn-primary">Send message</button>
+
+                    {!! Form::close() !!}
+
+                    <br><br>
+
+
+
+
+
+
+                    <div class="panel panel-default">
                     <div class="panel-heading">Recent ratings</div>
                     <div class="panel-body">
-                        <table id="attempts" class="table live-table table-striped table-condensed" data-source="{{ url('users', $user->id).'/ratings' }}" data-interval="60000">
+                        <table id="ratings" class="table live-table table-striped table-condensed" data-source="{{ url('users', $user->id).'/ratings' }}" data-interval="60000">
                             <thead>
                             <th>Level</th>
                             <th>Rating</th>

@@ -32,7 +32,8 @@ Route::post('levels/{levels}/rate', 'LevelsController@rate');
 Route::get('levels/{levels}/{slug}', 'LevelsController@show');
 
 Route::get('users/count/{allOrActive}', 'UsersController@count');
-Route::get('users/{users}/chat', 'UsersController@chat');
+Route::post('users/{users}/send', 'UsersController@send');
+Route::get('users/{users}/chats', 'UsersController@chats');
 Route::get('users/{users}/test', 'UsersController@test');
 Route::get('users/{users}/untest', 'UsersController@untest');
 Route::get('users/{users}/attempts', 'UsersController@attempts');

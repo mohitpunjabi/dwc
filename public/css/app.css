@@ -6402,7 +6402,7 @@ label,
 [data-field=answer] {
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width: 200px;
+  max-width: 180px;
 }
 
 /*# sourceMappingURL=app.css.map */

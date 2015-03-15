@@ -22,7 +22,6 @@ $(function () {
         var $this = $(this);
         var val = $this.val();
         var format = new RegExp($this.data('allowed-chars'), 'i');
-        console.log( String.fromCharCode( e.keyCode || e.which ));
         if (!format.test( String.fromCharCode( e.keyCode || e.which ))) {
             e.preventDefault();
         }
@@ -63,6 +62,7 @@ $.fn.extend({
             var source = $this.data('source');
 
             var _updateData = function(data) {
+                console.log(data);
                 var $rows = [$tr];
                 for(var i = 0; i < data.length; i++) {
                     var $newTr = $tr.clone();

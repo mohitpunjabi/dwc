@@ -8,8 +8,15 @@ class Chat extends Model {
         'message'
     ];
 
+    protected $appends = ['from_now'];
+
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function getFromNowAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 }

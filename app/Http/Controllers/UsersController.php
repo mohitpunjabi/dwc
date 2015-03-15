@@ -1,10 +1,12 @@
 <?php namespace App\Http\Controllers;
 
+use App\Chat;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
@@ -13,7 +15,7 @@ class UsersController extends Controller {
 
     public function __construct()
     {
-        $this->middleware('auth.admin', ['except' => ['count']]);
+        $this->middleware('auth.admin', ['except' => ['count', 'chats']]);
     }
 
     /**
@@ -35,9 +37,10 @@ class UsersController extends Controller {
         return $users;
     }
 
-    public function chat(User $user, Request $request)
+    public function send(User $user, Request $request)
     {
-        dd("opening chat");
+        $user->chats()->save(new Chat($request->only('message')));
+        return redirect()->back();
     }
 
     public function test(User $user, Request $request)
@@ -83,6 +86,12 @@ class UsersController extends Controller {
             ->get();
     }
 
+    public function chats(User $user, Request $request)
+    {
+        if($user == Auth::user() || Auth::user()->is_admin)
+        return $user->chats()->orderBy('created_at', 'desc')->get();
+    }
+
 
     /**
 	 * Show the form for creating a new resource.
@@ -114,7 +123,7 @@ class UsersController extends Controller {
 	public function show(User $user)
 	{
 		return view('users.show', compact('user'));
-;	}
+	}
 
 	/**
 	 * Show the form for editing the specified resource.
