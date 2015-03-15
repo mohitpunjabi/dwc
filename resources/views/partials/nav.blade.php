@@ -18,6 +18,7 @@
                 @if(Auth::user())
                     <li><a href="{{ url('/leaderboard') }}">Leaderboard</a></li>
                     <li><a href="{{ url('/levels') }}">Levels</a></li>
+                    <li><a href="https://www.facebook.com/dawhimsico/app_202980683107053" target="_blank">Forums</a></li>
                     @if(Auth::user()->is_admin)
                         <li><a href="{{ url('/special_pages') }}">Special Pages</a></li>
                         <li><a href="{{ url('/admin') }}">Admin</a></li>
@@ -32,7 +33,7 @@
                     <li><a href="{{ url('/auth/register') }}">Register</a></li>
                 @else
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="{{ Auth::user()->gravatar }}" height="20" alt="{{ Auth::user()->name }}" /> {{ Auth::user()->name }} <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="{{ Auth::user()->gravatar }}" height="20" title="{{ Auth::user()->name }}" /> #{{ Auth::user()->rank }} {{ Auth::user()->name }} <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{ url('/auth/logout') }}">Logout</a></li>
                         </ul>

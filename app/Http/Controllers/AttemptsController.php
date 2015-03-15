@@ -13,7 +13,7 @@ class AttemptsController extends Controller {
 
     public function __construct()
     {
-        $this->middleware('auth.admin');
+        $this->middleware('auth.admin', ['except' => 'count']);
     }
 
     /**
@@ -24,7 +24,7 @@ class AttemptsController extends Controller {
     public function index()
     {
         $attempts =  Attempt::orderBy('created_at', 'desc')
-            ->take(42)
+            ->take(100)
             ->addSelect('user_id', 'level_id', 'answer', 'created_at')
             ->with('user')
             ->get();

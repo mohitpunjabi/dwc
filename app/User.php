@@ -45,6 +45,18 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return "http://www.gravatar.com/avatar/$hash";
     }
 
+    public function getRankAttribute()
+    {
+        return User::notAdmin()
+            ->notTest()
+            ->where(function($query) {
+                return $query->where('level_id', '>', $this->level_id)->orWhere(function ($query) {
+                    return $query->where('level_id', '=', $this->level_id)
+                        ->where('updated_at', '<=', $this->updated_at);
+                    });
+            })->count();
+    }
+
     public function getNameAttribute()
     {
         return ucwords(strtolower($this->attributes['name']));
@@ -68,6 +80,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function visits()
     {
         return $this->belongsToMany('App\SpecialPage')->withTimestamps();
+    }
+
+    public function chats()
+    {
+        return $this->hasMany('App\Chat');
     }
 
     public function scopeNotAdmin($query)

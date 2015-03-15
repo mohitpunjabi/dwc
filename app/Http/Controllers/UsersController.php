@@ -7,23 +7,20 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+
 class UsersController extends Controller {
 
 
     public function __construct()
     {
-        $this->middleware('auth.admin');
+        $this->middleware('auth.admin', ['except' => ['count']]);
     }
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-        return User::orderBy('created_at')->get();
-	}
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
 
     public function recent()
     {
@@ -38,21 +35,26 @@ class UsersController extends Controller {
         return $users;
     }
 
-    public function test($id)
+    public function chat(User $user, Request $request)
     {
-        $user = User::findOrFail($id);
+        dd("opening chat");
+    }
+
+    public function test(User $user, Request $request)
+    {
         DB::table('test_users')->insert(
-            array('user_id' => $id)
+            array('user_id' => $user->id)
         );
 
         return $user;
     }
 
 
-    public function untest($id)
+    public function untest(User $user, Request $request)
     {
-        $user = User::findOrFail($id);
-        DB::table('test_users')->where('user_id', '=', $id)->delete();
+        DB::table('test_users')
+            ->where('user_id', '=', $user->id)
+            ->delete();
 
         return $user;
     }
@@ -62,5 +64,69 @@ class UsersController extends Controller {
         if($allOrActive == 'all')    return User::notAdmin()->notTest()->count();
         if($allOrActive == 'active') return User::notAdmin()->notTest()->active()->count();
     }
+
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		//
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		//
+	}
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		//
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		//
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		//
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		//
+	}
 
 }

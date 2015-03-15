@@ -11,7 +11,7 @@
             <div class="col-lg-6 col-lg-offset-3 col-sm-offset-1 col-sm-10">
                 @if($level->prize)
                     <div class="alert alert-info alert-dismissable">
-                        Solve this level and get a prize.
+                        Solve this level and get exciting prizes.
                     </div>
                 @endif
                 @if($level->image)
@@ -22,16 +22,14 @@
                 <br/>
 
                 <p class="lead text-center">{!! $level->hint or '' !!}</p>
-                    @if($level->id > 1)
-                        {!! Form::open(['url' => ['levels', $level->id, 'attempt']]) !!}
-                        <div class="input-group input-group-lg">
-                            {!! Form::text('answer', null, ['class' => 'form-control', 'placeholder' => 'Your answer', 'tabindex' => '1', 'autofocus' => 'true', 'data-allowed-chars' => $level->answer_format ]) !!}
-                            <div class="input-group-btn">
-                                <button class=" btn btn-primary" type="submit" tabindex="2">Go</button>
-                            </div>
+                    {!! Form::open(['url' => ['levels', $level->id, 'attempt']]) !!}
+                    <div class="input-group input-group-lg">
+                        {!! Form::text('answer', null, ['class' => 'form-control', 'placeholder' => 'Your answer', 'tabindex' => '1', 'autofocus' => 'true', 'data-allowed-chars' => $level->answer_format ]) !!}
+                        <div class="input-group-btn">
+                            <button class=" btn btn-primary" type="submit" tabindex="2">Go</button>
                         </div>
-                        {!! Form::close() !!}
-                    @endif
+                    </div>
+                    {!! Form::close() !!}
 
                 @if($errors->any())
                     <div class="alert alert-danger level-alert">

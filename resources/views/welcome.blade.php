@@ -17,7 +17,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
-
     @include('partials.analytics')
 </head>
 
@@ -39,7 +38,7 @@
                 <a href="{{ url('/auth/register') }}" class="btn btn-default btn-lg">Register</a>
             @else
                 <a href="{{ url('/home') }}"  class="btn btn-success btn-lg">Start playing now</a>
-<!--                <a class="btn btn-primary btn-lg">Visit the forums</a> -->
+                <a href="https://www.facebook.com/dawhimsico/app_202980683107053" target="_blank" class="btn btn-primary btn-lg">Visit the forums</a>
             @endif
 
             <br/><br/>

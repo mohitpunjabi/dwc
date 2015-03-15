@@ -28,3 +28,67 @@ $(function () {
         }
     });
 });
+
+
+$(function() {
+    $('.live-data').each(function() {
+        var $this = $(this);
+        var source = $this.data('source');
+        var interval = $this.data('interval');
+        var _updateData = function(data) {
+            $this.html(data);
+        };
+
+        var _fetchData = function() {
+            $.ajax({
+                url: source
+            }).success(function(data) {
+                _updateData(data);
+                setTimeout(_fetchData, interval);
+            });
+        };
+
+        _fetchData();
+    });
+
+});
+
+$.fn.extend({
+    liveTable: function() {
+        return $(this).each(function() {
+            var $this = $(this);
+            var $tbody = $this.find('tbody');
+            var $tr = $tbody.find('tr').first();
+            var interval = $this.data('interval');
+            var source = $this.data('source');
+
+            var _updateData = function(data) {
+                var $rows = [$tr];
+                for(var i = 0; i < data.length; i++) {
+                    var $newTr = $tr.clone();
+                    $newTr.find('[data-field]').each(function() {
+                        var keys = $(this).data('field').split(".");
+                        var newData = data[i];
+                        for(var j = 0; j < keys.length; j++) newData = newData[keys[j]];
+                        $(this).html(newData);
+                    });
+
+                    $rows.push($newTr);
+                }
+
+                $tbody.html($rows);
+            };
+
+            var _fetchData = function() {
+                $.ajax({
+                    url: source
+                }).success(function(data) {
+                    _updateData(data);
+                    setTimeout(_fetchData, interval);
+                });
+            };
+
+            _fetchData();
+        });
+    }
+});

@@ -8,15 +8,15 @@
             <div class="col-md-5">
                 <div class="row">
                     <div class="col-md-4 col-sm-4 text-center">
-                        <h1 style="font-size:6em" class="live-data" data-source="{{ url('users/count/all') }}" data-interval="20000">0</h1>
+                        <h1 style="font-size:4em" class="live-data" data-source="{{ url('users/count/all') }}" data-interval="20000">0</h1>
                         <p class="lead">users registered</p>
                     </div>
                     <div class="col-md-4 col-sm-4 text-center">
-                        <h1 style="font-size:6em" class="live-data" data-source="{{ url('users/count/active') }}" data-interval="1000">0</h1>
+                        <h1 style="font-size:4em" class="live-data" data-source="{{ url('users/count/active') }}" data-interval="1000">0</h1>
                         <p class="lead">users active</p>
                     </div>
                     <div class="col-md-4 col-sm-4 text-center">
-                        <h1 style="font-size:6em" class="live-data" data-source="{{ url('attempts/count') }}" data-interval="5000">0</h1>
+                        <h1 style="font-size:4em" class="live-data" data-source="{{ url('attempts/count') }}" data-interval="5000">0</h1>
                         <p class="lead">attempts made</p>
                     </div>
                 </div>
@@ -95,6 +95,7 @@
                                     <td data-field="id"></td>
                                     <td>
                                         <div class="user">
+                                            <a class="user-chat-button" title="Chat with this user" data-field="id"></a>
                                             <div class="user-image hidden-sm hidden-xs" data-field="image"></div>
                                             <div class="user-details">
                                                 <p class="user-name" data-field="name"></p>
@@ -159,6 +160,17 @@
         .panel-heading {
             cursor: pointer;
         }
+
+        .user-chat-button {
+            width: 10px;
+            height: 10px;
+            vertical-align: top;
+            cursor: pointer;
+            font-size: 0;
+            background: dodgerblue;
+            border-radius: 100%;
+            display: inline-block;
+        }
     </style>
 @stop
 
@@ -167,70 +179,11 @@
     <script src="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 
     <script type="text/javascript">
-        $.fn.extend({
-            liveTable: function() {
-                return $(this).each(function() {
-                    var $this = $(this);
-                    var $tbody = $this.find('tbody');
-                    var $tr = $tbody.find('tr').first();
-                    var interval = $this.data('interval');
-                    var source = $this.data('source');
-
-                    var _updateData = function(data) {
-                        var $rows = [$tr];
-                        for(var i = 0; i < data.length; i++) {
-                            var $newTr = $tr.clone();
-                            $newTr.find('[data-field]').each(function() {
-                                var keys = $(this).data('field').split(".");
-                                var newData = data[i];
-                                for(var j = 0; j < keys.length; j++) newData = newData[keys[j]];
-                                $(this).html(newData);
-                            });
-
-                            $rows.push($newTr);
-                        }
-
-                        $tbody.html($rows);
-                    };
-
-                    var _fetchData = function() {
-                        $.ajax({
-                            url: source
-                        }).success(function(data) {
-                            _updateData(data);
-                            setTimeout(_fetchData, interval);
-                        });
-                    };
-
-                    _fetchData();
-                });
-            }
-        });
 
         $(function() {
             $(".live-table").liveTable();
-
-            $('.live-data').each(function() {
-                var $this = $(this);
-                var source = $this.data('source');
-                var interval = $this.data('interval');
-                var _updateData = function(data) {
-                    $this.html(data);
-                };
-
-                var _fetchData = function() {
-                    $.ajax({
-                        url: source
-                    }).success(function(data) {
-                        _updateData(data);
-                        setTimeout(_fetchData, interval);
-                    });
-                };
-
-                _fetchData();
-            });
-
         });
     </script>
+
 @stop
 

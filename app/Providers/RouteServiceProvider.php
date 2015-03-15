@@ -26,6 +26,7 @@ class RouteServiceProvider extends ServiceProvider {
 
 		$router->model('levels', 'App\Level');
         $router->model('special_pages', 'App\SpecialPage');
+        $router->model('users', 'App\User');
 	}
 
 	/**

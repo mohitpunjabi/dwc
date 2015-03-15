@@ -6,7 +6,20 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                @include('partials.ad')
+                <div>
+                    <div class="col-md-4 col-sm-4 text-center">
+                        <h1 style="font-size:6em" class="live-data" data-source="{{ url('users/count/all') }}" data-interval="20000"></h1>
+                        <p class="lead">users registered</p>
+                    </div>
+                    <div class="col-md-4 col-sm-4 text-center">
+                        <h1 style="font-size:6em" class="live-data" data-source="{{ url('users/count/active') }}" data-interval="1000"></h1>
+                        <p class="lead">users active</p>
+                    </div>
+                    <div class="col-md-4 col-sm-4 text-center">
+                        <h1 style="font-size:6em" class="live-data" data-source="{{ url('attempts/count') }}" data-interval="5000"></h1>
+                        <p class="lead">attempts made</p>
+                    </div>
+                </div>
 
                 <div class="text-right">
                     {!! $users->render() !!}
