@@ -26,7 +26,9 @@
                             <span class="label label-success level-points">+{{ $level->points }}</span>
                             {{ $level->title }}
                         </h4>
-                        <p class="level-hint">{!! $level->hint !!}</p>
+                        @if(Auth::user()->is_admin)
+                            <p class="level-hint"><img src="{{ asset('favico.png') }}" height="15" /> {{ $level->avg_rating }}</p>
+                        @endif
                     </a>
                 </div>
             @endforeach

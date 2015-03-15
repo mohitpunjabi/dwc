@@ -40,6 +40,11 @@ class Level extends Model {
         }
     }
 
+    public function getAvgRatingAttribute()
+    {
+        return $this->ratings()->avg('rating');
+    }
+
     public function users()
     {
         return $this->hasMany('App\User');
