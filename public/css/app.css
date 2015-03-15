@@ -6393,5 +6393,16 @@ label,
 .leaderboard tr.current {
   background: #eeeeee;
 }
+.live-table tbody tr:first-child {
+  display: none;
+}
+.panel-heading {
+  cursor: pointer;
+}
+[data-field=answer] {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 200px;
+}
 
 /*# sourceMappingURL=app.css.map */

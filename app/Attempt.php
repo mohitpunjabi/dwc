@@ -9,12 +9,18 @@ class Attempt extends Model {
 
     protected $fillable = ['answer'];
 
-    protected $appends = ['attempted_at'];
+    protected $appends = ['attempted_at', 'from_now'];
 
     public function getAttemptedAtAttribute()
     {
         return $this->attributes['created_at'];
     }
+
+    public function getFromNowAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
 
     public function user()
     {

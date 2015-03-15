@@ -21,8 +21,8 @@
                     </div>
                 </div>
 
-                <div class="panel panel-default" data-toggle="collapse" data-parent=".row" data-target="#visits">
-                    <div class="panel-heading">Recent page visits</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-parent=".row" data-target="#visits">Recent page visits</div>
                     <div id="visits" class="panel-body panel-collapse collapse in">
                         <table class="table live-table table-striped table-condensed" data-source="{{ url('/special_pages/visits') }}" data-interval="20000">
                             <thead>
@@ -50,8 +50,8 @@
                     </div>
                 </div>
 
-                <div class="panel panel-default" data-toggle="collapse" data-parent=".row" data-target="#ratings">
-                    <div class="panel-heading">Recent ratings</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-parent=".row" data-target="#ratings">Recent ratings</div>
                     <div id="ratings" class="panel-body panel-collapse collapse in">
                         <table class="table live-table table-striped table-condensed" data-source="{{ url('/ratings') }}" data-interval="20000">
                             <thead>
@@ -67,7 +67,7 @@
                                     <div class="user">
                                         <div class="user-image hidden-sm hidden-xs" data-field="user.image"></div>
                                         <div class="user-details">
-                                            <p class="user-name" data-field="user.name"></p>
+                                            <p class="user-name" data-field="user.name_link_tag"></p>
                                             <p class="user-score" data-field="user.email"></p>
                                         </div>
                                     </div>
@@ -81,8 +81,8 @@
                     </div>
                 </div>
 
-                <div class="panel panel-default" data-toggle="collapse" data-parent=".row" data-target="#registrations">
-                    <div class="panel-heading">Recent registrations</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-parent=".row" data-target="#registrations">Recent registrations</div>
                     <div id="registrations" class="panel-body panel-collapse collapse in">
                         <table class="table live-table table-striped table-condensed" data-source="{{ url('/users/recent') }}" data-interval="20000">
                             <thead>
@@ -95,10 +95,9 @@
                                     <td data-field="id"></td>
                                     <td>
                                         <div class="user">
-                                            <a class="user-chat-button" title="Chat with this user" data-field="id"></a>
                                             <div class="user-image hidden-sm hidden-xs" data-field="image"></div>
                                             <div class="user-details">
-                                                <p class="user-name" data-field="name"></p>
+                                                <p class="user-name" data-field="name_link_tag"></p>
                                                 <p class="user-score" data-field="email"></p>
                                             </div>
                                         </div>
@@ -114,7 +113,7 @@
 
             <div class="col-md-7">
 
-                <div class="panel panel-primary">
+            <div class="panel panel-primary">
                 <div class="panel-heading">Recent attempts</div>
                 <div class="panel-body">
                     <table id="attempts" class="table live-table table-striped table-condensed" data-source="{{ url('/attempts') }}" data-interval="3000">
@@ -133,7 +132,7 @@
                                     <div class="user">
                                         <div class="user-image hidden-sm hidden-xs" data-field="user.image"></div>
                                         <div class="user-details">
-                                            <p class="user-name" data-field="user.name"></p>
+                                            <p class="user-name" data-field="user.name_link_tag"></p>
                                             <p class="user-score" data-field="user.email"></p>
                                         </div>
                                     </div>
@@ -153,14 +152,6 @@
 
 @section('styles')
     <style type="text/css">
-        .live-table tbody tr:first-child {
-            display: none;
-        }
-
-        .panel-heading {
-            cursor: pointer;
-        }
-
         .user-chat-button {
             width: 10px;
             height: 10px;

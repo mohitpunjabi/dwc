@@ -14,6 +14,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LevelsController extends Controller {
 
@@ -72,7 +73,7 @@ class LevelsController extends Controller {
 
         if($slug != $level->slug)            return redirect(route('levels.show', $level->id) . '/' . $level->slug);
 
-        if(Auth::user()->is_admin)           return view('levels.admin.show', ['level' => $level, 'rating' => $level->ratings()->avg('rating')]);
+        if(Auth::user()->is_admin)           return view('levels.admin.show', compact('level'));
         if($level->isCurrent(Auth::user()))  return view('levels.show', compact('level'));
         $showRating = (Auth::user()->ratings()->whereLevelId($level->id)->count() == 0);
         return view('levels.solution', compact('level', 'showRating'));
@@ -137,5 +138,24 @@ class LevelsController extends Controller {
         return redirect()->back()->withInputs($request->all());
     }
 
+    public function attemptsTop(Level $level, Request $request)
+    {
+        return $level->attempts()
+            ->groupBy('answer')
+            ->addSelect('answer', 'created_at', 'user_id', DB::raw('count(*) as count'))
+            ->orderBy('count', 'desc')
+            ->take(42)
+            ->with('user')
+            ->get();
+    }
+
+    public function attempts(Level $level, Request $request)
+    {
+        return $level->attempts()
+            ->orderBy('created_at', 'desc')
+            ->take(50)
+            ->with('user')
+            ->get();
+    }
 
 }

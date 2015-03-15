@@ -25,15 +25,19 @@ Route::resource('special_pages', 'SpecialPagesController');
 Route::get('special_pages/{slug}', 'SpecialPagesController@show');
 
 Route::resource('levels', 'LevelsController');
+Route::get('levels/{levels}/attempts', 'LevelsController@attempts');
+Route::get('levels/{levels}/attempts/top', 'LevelsController@attemptsTop');
 Route::post('levels/{levels}/attempt', 'LevelsController@attempt');
 Route::post('levels/{levels}/rate', 'LevelsController@rate');
 Route::get('levels/{levels}/{slug}', 'LevelsController@show');
 
 Route::get('users/count/{allOrActive}', 'UsersController@count');
-Route::get('users/recent', 'UsersController@recent');
 Route::get('users/{users}/chat', 'UsersController@chat');
 Route::get('users/{users}/test', 'UsersController@test');
 Route::get('users/{users}/untest', 'UsersController@untest');
+Route::get('users/recent', 'UsersController@recent');
+Route::resource('users', 'UsersController');
+
 
 Route::get('ratings', 'RatingsController@index');
 

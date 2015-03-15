@@ -33,7 +33,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
-    protected $appends = ['gravatar', 'score'];
+    protected $appends = ['gravatar', 'score', 'name_link_tag'];
 
     /**
      * Mutator to get the gravatar for the user.
@@ -43,6 +43,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         $hash = md5(strtolower(trim($this->attributes['email'])));
         return "http://www.gravatar.com/avatar/$hash";
+    }
+
+    public function getNameLinkTagAttribute()
+    {
+        return '<a href="'.route('users.show', $this->id).'">'.$this->name.'</a>';
     }
 
     public function getRankAttribute()
@@ -61,6 +66,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return ucwords(strtolower($this->attributes['name']));
     }
+
+    public function getScoreAttribute()
+    {
+        return Level::where('id', '<', $this->level_id)->sum('points');
+    }
+
 
     public function level()
     {
@@ -102,15 +113,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         });
     }
 
-
     public function scopeSolved($query)
     {
         return $query->where('id', '<', $this->level->id);
-    }
-
-    public function getScoreAttribute()
-    {
-        return Level::where('id', '<', $this->level_id)->sum('points');
     }
 
     public function scopeRanklist($query)
