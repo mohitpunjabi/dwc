@@ -68,9 +68,9 @@
                                 {{ $errors->first() }}
                             </div>
                         @endif
-                        {!! Form::label('message', 'Chat message - Beta') !!}
+                        {!! Form::label('message', 'Chat message') !!}
                             {!! Form::textarea('message', null, ['class' => 'form-control', 'placeholder' => 'Don\'t send empty messages', 'rows' => '3']) !!}
-                        <label class="help-block"><b>Still in beta!</b> Test on test users before using</label>
+                        <label class="help-block">With great power, comes great responsibility, bitches.</label>
                     </div>
                     <button type="submit" class="btn btn-block btn-primary">Send message</button>
 
