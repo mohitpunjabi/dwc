@@ -152,15 +152,13 @@
 
 @section('styles')
     <style type="text/css">
-        .user-chat-button {
-            width: 10px;
-            height: 10px;
-            vertical-align: top;
+        [data-field=level_id] {
+            font-size: 1.2em;
+            font-weight: 400;
             cursor: pointer;
-            font-size: 0;
-            background: dodgerblue;
-            border-radius: 100%;
-            display: inline-block;
+        }
+        [data-field=level_id]:hover {
+            text-decoration: underline;
         }
     </style>
 @stop
@@ -173,6 +171,9 @@
 
         $(function() {
             $(".live-table").liveTable();
+            $('body').on('click', '[data-field=level_id]', function(e) {
+                window.location = '{{ url('levels') }}/'+$(this).html();
+            });
         });
     </script>
 
