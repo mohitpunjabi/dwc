@@ -27,7 +27,13 @@
                             {{ $level->title }}
                         </h4>
                         @if(Auth::user()->is_admin)
-                            <p class="level-hint"><img src="{{ asset('favico.png') }}" height="15" /> {{ $level->avg_rating }}</p>
+                            <p class="level-hint">
+                                <?php $rating = $level->avg_rating ?>
+                                @for($i = 0; $i < round($rating); $i++)
+                                    <img src="{{ asset('favico.png') }}" height="15" />
+                                @endfor
+                                ({{ $level->avg_rating }})
+                            </p>
                         @endif
                     </a>
                 </div>
