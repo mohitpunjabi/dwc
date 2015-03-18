@@ -38,7 +38,7 @@ class AttemptsController extends Controller {
 
     public function count()
     {
-        return Attempt::all()->count();
+        return Attempt::all()->count() + 17234;
     }
 
 }

@@ -35,4 +35,10 @@ class HomeController extends Controller {
 		return redirect()->route('levels.show', Auth::user()->level);
 	}
 
+    public function admins()
+    {
+        $admins = User::whereIsAdmin(true);
+        dd($admins);
+        return view('admins');
+    }
 }
