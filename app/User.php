@@ -33,7 +33,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
-    protected $appends = ['gravatar', 'score', 'name_link_tag'];
+    protected $appends = ['gravatar', 'score', 'name_link_tag', 'has_finished'];
 
     /**
      * Mutator to get the gravatar for the user.
@@ -60,6 +60,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                         ->where('level_solved_at', '<=', $this->level_solved_at);
                     });
             })->count();
+    }
+
+    public function getHasFinishedAttribute()
+    {
+        return $this->level_id > Level::$LAST_LEVEL;
     }
 
     public function getNameAttribute()
@@ -98,6 +103,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Chat');
     }
 
+    public function feedback()
+    {
+        return $this->hasOne('App\Feedback');
+    }
+
     public function scopeNotAdmin($query)
     {
         return $query->where('is_admin', '=', '0');
@@ -118,6 +128,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $query->where('id', '<', $this->level->id);
     }
 
+
     public function scopeRanklist($query)
     {
         return $query->notAdmin()
@@ -131,4 +142,5 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         $query->where('updated_at', '>', Carbon::now()->subMinutes(5)->toDateTimeString());
     }
+
 }

@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Chat;
+use App\Feedback;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +16,7 @@ class UsersController extends Controller {
 
     public function __construct()
     {
-        $this->middleware('auth.admin', ['except' => ['count', 'chats']]);
+        $this->middleware('auth.admin', ['except' => ['count', 'chats', 'rank', 'feedback']]);
     }
 
     /**
@@ -125,7 +126,22 @@ class UsersController extends Controller {
 		return view('users.show', compact('user'));
 	}
 
-	/**
+    public function rank(User $user)
+    {
+        if($user != Auth::user()) abort(403);
+        return view('users.rank', compact('user'));
+    }
+
+    public function feedback(User $user, Request $request)
+    {
+        $this->validate($request, ['feedback' => 'required']);
+        $feedback = new Feedback($request->only('feedback'));
+        Auth::user()->feedback()->save($feedback);
+        return redirect()->back()->withErrors(['feedback']);
+    }
+
+
+    /**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id

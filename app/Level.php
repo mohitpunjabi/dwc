@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Level extends Model {
 
+    public static $LAST_LEVEL = 35;
+
     protected $table = 'levels';
 
     protected $fillable = [

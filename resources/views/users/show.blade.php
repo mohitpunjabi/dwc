@@ -69,7 +69,7 @@
                             </div>
                         @endif
                         {!! Form::label('message', 'Chat message') !!}
-                            {!! Form::textarea('message', null, ['class' => 'form-control', 'placeholder' => 'Don\'t send empty messages', 'rows' => '3']) !!}
+                        {!! Form::textarea('message', null, ['class' => 'form-control', 'placeholder' => 'Don\'t send empty messages', 'rows' => '3']) !!}
                         <label class="help-block">With great power, comes great responsibility, bitches.</label>
                     </div>
                     <button type="submit" class="btn btn-block btn-primary">Send message</button>
@@ -88,8 +88,8 @@
                     <div class="panel-body">
                         <table id="ratings" class="table live-table table-striped table-condensed" data-source="{{ url('users', $user->id).'/ratings' }}" data-interval="60000">
                             <thead>
-                            <th>Level</th>
-                            <th>Rating</th>
+                                <th>Level</th>
+                                <th>Rating</th>
                             </thead>
 
                             <tbody>

@@ -62,7 +62,6 @@ $.fn.extend({
             var source = $this.data('source');
 
             var _updateData = function(data) {
-                console.log(data);
                 var $rows = [$tr];
                 for(var i = 0; i < data.length; i++) {
                     var $newTr = $tr.clone();

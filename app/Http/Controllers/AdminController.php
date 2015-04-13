@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Feedback;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -21,7 +22,8 @@ class AdminController extends Controller {
 
     public function index()
     {
-        return view('admin.dashboard');
+        $feedbacks = Feedback::orderBy('created_at', 'desc')->with('user')->get();
+        return view('admin.dashboard', compact('feedbacks'));
     }
 
     public function hints()

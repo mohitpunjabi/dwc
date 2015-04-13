@@ -5,6 +5,39 @@
 @section('content')
     <div class="container">
         <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading" data-toggle="collapse" data-parent=".row" data-target="#ratings">Feedback</div>
+                    <div id="ratings" class="panel-body panel-collapse collapse in">
+                        <table class="table table-striped table-condensed">
+                            <thead>
+                            <th>User</th>
+                            <th>Feedback</th>
+                            <th>When</th>
+                            </thead>
+                            <tbody>
+                            @foreach($feedbacks as $feedback)
+                                <tr>
+                                    <td>
+                                        <div class="user">
+                                            <div class="user-image hidden-sm hidden-xs"><img src="{{ $feedback->user->gravatar }}"></div>
+                                            <div class="user-details">
+                                                <p class="user-name"><a href="{{ url('users/' . $feedback->user->id) }}">{{ $feedback->user->name }}</a></p>
+                                                <p class="user-score">{{ $feedback->user->email }}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{ $feedback->feedback }}</td>
+                                    <td>{{ $feedback->created_at->diffForHumans() }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-5">
                 <div class="row">
                     <div class="col-md-4 col-sm-4 text-center">
@@ -49,6 +82,7 @@
                         </table>
                     </div>
                 </div>
+
 
                 <div class="panel panel-default">
                     <div class="panel-heading" data-toggle="collapse" data-parent=".row" data-target="#ratings">Recent ratings</div>

@@ -14,7 +14,10 @@
             @if($levels->isEmpty())
                 <span>There are no levels to solve.</span>
             @endif
-
+            <div class="text-center">
+                @include('partials.wonderfulad')
+                <br>
+            </div>
             @foreach($levels as $level)
                 <div class="col-md-2 col-sm-4 col-xs-6 col-lg-2 level-thumbnail">
                     @if(Auth::user()->is_admin)

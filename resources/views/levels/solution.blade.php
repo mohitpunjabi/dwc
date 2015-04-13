@@ -4,7 +4,11 @@
 
 @section('content')
     <div class="container">
-        @include('partials.ad')
+        <div class="text-center">
+            @include('partials.wonderfulad')
+            <br>
+        </div>
+
 
         <div class="row">
             <div class="col-md-3 col-md-offset-1">

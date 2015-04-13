@@ -11,8 +11,18 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+
 Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
+
+Route::get('feedback',function() {
+    return redirect(url('users/' . Auth::user()->id . '/rank'));
+});
+
+Route::get('admins',function() {
+     return view('admins');
+ });
 Route::get('leaderboard', 'LeaderboardController@index');
 
 Route::controllers([
@@ -32,12 +42,14 @@ Route::post('levels/{levels}/rate', 'LevelsController@rate');
 Route::get('levels/{levels}/{slug}', 'LevelsController@show');
 
 Route::get('users/count/{allOrActive}', 'UsersController@count');
+Route::post('users/{users}/feedback', 'UsersController@feedback');
 Route::post('users/{users}/send', 'UsersController@send');
 Route::get('users/{users}/chats', 'UsersController@chats');
 Route::get('users/{users}/test', 'UsersController@test');
 Route::get('users/{users}/untest', 'UsersController@untest');
 Route::get('users/{users}/attempts', 'UsersController@attempts');
 Route::get('users/{users}/ratings', 'UsersController@ratings');
+Route::get('users/{users}/rank', 'UsersController@rank');
 Route::get('users/recent', 'UsersController@recent');
 
 Route::resource('users', 'UsersController');
@@ -54,4 +66,4 @@ Route::get('admin/hints', 'AdminController@hints');
 
 
 
-Route::get('{slug}', 'SpecialPagesController@show');
+Route::get('{slug}', 'SpecialPagesController@show')->where('slug', '[-A-Za-z0-9]+');;

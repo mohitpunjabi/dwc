@@ -71,6 +71,7 @@ class LevelsController extends Controller {
         $special = SpecialPage::whereSlug($slug)->first();
         if($special)                         return redirect(url($special->slug));
 
+        if($level->id > LEVEL::$LAST_LEVEL)  return redirect(url('users/' . Auth::user()->id .'/rank'));
         if($slug != $level->slug)            return redirect(route('levels.show', $level->id) . '/' . $level->slug);
 
         if(Auth::user()->is_admin)           return view('levels.admin.show', compact('level'));

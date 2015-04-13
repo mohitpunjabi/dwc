@@ -6,6 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+                @include('partials.wonderfulad');
                 <div>
                     <div class="col-md-4 col-sm-4 text-center">
                         <h1 style="font-size:6em" class="live-data" data-source="{{ url('users/count/all') }}" data-interval="20000"></h1>
@@ -56,6 +57,8 @@
                 <div class="text-right">
                     {!! $users->render() !!}
                 </div>
+
+                @include('partials.wonderfulad');
             </div>
         </div>
     </div>
