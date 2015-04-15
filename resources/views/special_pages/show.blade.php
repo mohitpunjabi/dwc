@@ -4,6 +4,7 @@
 
 @section('og-image'){{ $page->og_image or asset('img/logo-without-text.png')}}@stop
 
+
 @section('title'){{ $page->title or ''}}@stop
 
 @section('content')
